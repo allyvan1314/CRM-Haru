@@ -62,7 +62,15 @@ module.exports.create = async (req, res) => {
             });
     }
     else {
-        return res.status(400).json({ message: "not will sent" });
+        let PHONE_NUMBER = phone;
+        let CUSTOMER_ID = cusInfo.CUSTOMER_ID;
+        let FULL_NAME = cusInfo.FULL_NAME;
+        let KEY_PRESS = keypress;
+        let SEND_DATE = Date.now();
+        let IS_SEND = '0';
+
+        let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, FULL_NAME, KEY_PRESS, SEND_DATE, IS_SEND });
+        await sendLogRepository.addSendLog(sendLogInfo)
     }
     // end of testing function
 
