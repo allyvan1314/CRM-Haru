@@ -22,7 +22,7 @@ module.exports.create = async (req, res) => {
     // const keypress = req.body.keypress;
     // const phone = req.body.phone;
     let cusInfo = await cusInfoRepository.getCusInfo(phone)
-    if (keypress === "1" || keypress ==="1,1" ) {
+    if (keypress === "1" || keypress ==="1,1"|| keypress ==="1,1,1" ) {
         //let phone = req.body.PHONE_NUMBER
 
         // res.send({
