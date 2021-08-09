@@ -55,8 +55,8 @@ module.exports.create = async (req, res) => {
         }
         axios.post('https://dev.infosky.vn/ProcessRequest', dataSend)
             .then((res) => {
-                //console.log(`Status: ${res.status}`);
-                //console.log('Body: ', res.data);
+                console.log(`Status: ${res.status}`);
+                console.log('Body: ', res.data);
             }).catch((err) => {
                 console.error(err);
             });
