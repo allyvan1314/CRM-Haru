@@ -16,7 +16,8 @@ module.exports.create = async (req, res) => {
     });
     
     await callResultRepository.addCallResult(info)
-    res.status(400).json({ message: "send CallResult success" });
+    res.status(200).json({ message: "send CallResult success" })
+    
     let cusInfo = await cusInfoRepository.getCusInfo(phone)
     if (keypress === "1" || keypress ==="1,1"|| keypress ==="1,1,1" ) {
         let PHONE_NUMBER = phone;
