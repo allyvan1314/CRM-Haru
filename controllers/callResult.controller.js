@@ -71,7 +71,7 @@ module.exports.create = async (req, res) => {
 
         let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, FULL_NAME, KEY_PRESS, SEND_DATE, IS_SEND });
         await sendLogRepository.addSendLog(sendLogInfo)
-        //return res.status(400).json({ message: "not sent" });
+        return res.status(400).json({ message: "send CallResult success!!!" });
     }
     // end of testing function
 
