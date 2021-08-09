@@ -10,18 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "artillery": "^1.7.6",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "fs": "0.0.1-security",
     "mongoose": "^5.13.5",
-    "mysql": "^2.18.1",
-    "mysql-ssh": "^1.0.6",
-    "mysql2": "^2.2.5",
-    "rsa-json": "^0.2.1",
-    "ssh2": "^1.1.0"
+    "rsa-json": "^0.2.1"
   }
 }
