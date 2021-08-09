@@ -14,7 +14,7 @@ module.exports.create = async (req, res) => {
     let info = new callResult({
         campaign, group, contact, phone, callid, keypress, duration, talktimes, calldate, status, disposition, cid
     });
-
+    
     await callResultRepository.addCallResult(info)
 
 
@@ -31,8 +31,8 @@ module.exports.create = async (req, res) => {
         //     status: 200,
         // });
         res.send({
-            // data: cusInfo,
-            // error_code: 0,
+            data: cusInfo,
+            error_code: 0,
             message: "send CallResult success",
             status: 200,
         });
