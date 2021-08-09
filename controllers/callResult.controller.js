@@ -16,27 +16,9 @@ module.exports.create = async (req, res) => {
     });
     
     await callResultRepository.addCallResult(info)
-
-
-    // --- testing this function
-    // const keypress = req.body.keypress;
-    // const phone = req.body.phone;
+    res.status(400).json({ message: "send CallResult success" });
     let cusInfo = await cusInfoRepository.getCusInfo(phone)
     if (keypress === "1" || keypress ==="1,1"|| keypress ==="1,1,1" ) {
-        //let phone = req.body.PHONE_NUMBER
-
-        // res.send({
-        //     data: cusInfo,
-        //     error_code: 0,
-        //     status: 200,
-        // });
-        res.send({
-            data: cusInfo,
-            error_code: 0,
-            message: "send CallResult success",
-            status: 200,
-        });
-
         let PHONE_NUMBER = phone;
         let CUSTOMER_ID = cusInfo.CUSTOMER_ID;
         let FULL_NAME = cusInfo.FULL_NAME;
@@ -71,7 +53,7 @@ module.exports.create = async (req, res) => {
 
         let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, FULL_NAME, KEY_PRESS, SEND_DATE, IS_SEND });
         await sendLogRepository.addSendLog(sendLogInfo)
-        return res.status(400).json({ message: "send CallResult success!!!" });
+        console.log('not send');
     }
     // end of testing function
 
