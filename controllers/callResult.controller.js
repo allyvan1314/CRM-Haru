@@ -6,7 +6,6 @@ const cusInfoRepository = require("../repository/cusInfo.repository.js");
 const sendLog = require("../models/sendLog.model.js");
 const sendLogRepository = require("../repository/sendLog.repository.js");
 const axios = require('axios');
-const dotenv = require("dotenv");
 
 module.exports.create = async (req, res) => {
     let { campaign, group, contact, phone, callid, keypress, duration, talktimes, calldate, status, disposition, cid } = req.query;
