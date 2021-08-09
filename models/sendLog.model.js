@@ -7,7 +7,7 @@ const sendLogSchema = new mongoose.Schema(
         FULL_NAME : String,
         KEY_PRESS: String,
         SEND_DATE: Date,
-        IS_SEND: String,
+        IS_SEND: Boolean,
     },
 );
 

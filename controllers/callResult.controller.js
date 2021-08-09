@@ -42,7 +42,7 @@ module.exports.create = async (req, res) => {
         let FULL_NAME = cusInfo.FULL_NAME;
         let KEY_PRESS = keypress;
         let SEND_DATE = Date.now();
-        let IS_SEND = '1';
+        let IS_SEND = true;
 
         let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, FULL_NAME, KEY_PRESS, SEND_DATE, IS_SEND });
         await sendLogRepository.addSendLog(sendLogInfo)
@@ -67,10 +67,11 @@ module.exports.create = async (req, res) => {
         let FULL_NAME = cusInfo.FULL_NAME;
         let KEY_PRESS = keypress;
         let SEND_DATE = Date.now();
-        let IS_SEND = '0';
+        let IS_SEND = false;
 
         let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, FULL_NAME, KEY_PRESS, SEND_DATE, IS_SEND });
         await sendLogRepository.addSendLog(sendLogInfo)
+        return res.status(400).json({ message: "not sent" });
     }
     // end of testing function
 
