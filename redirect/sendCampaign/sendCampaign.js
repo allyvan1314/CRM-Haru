@@ -6,7 +6,7 @@ const apiAdapter = require("./apiAdapter");
 const BASE_URL = "http://otp.voip24h.vn/v2/create";
 const api = apiAdapter(BASE_URL);
 
-router.post("/create", (req, res) => {
+router.post("/", (req, res) => {
     api.post(req.originalUrl, req.body).then(resp => {
         res.send(resp.data)
     })
