@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const apiAdapter = require("./apiAdapter");
 
-const BASE_URL = "http://otp.voip24h.vn/v2";
+const BASE_URL = "http://otp.voip24h.vn/v2/create";
 const api = apiAdapter(BASE_URL);
 
 router.post("/create", (req, res) => {
