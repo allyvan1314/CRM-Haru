@@ -31,9 +31,9 @@ module.exports.create = async (req, res) => {
         //     status: 200,
         // });
         res.send({
-            data: cusInfo,
-            error_code: 0,
-            message: "add CallResult success",
+            // data: cusInfo,
+            // error_code: 0,
+            message: "send CallResult success",
             status: 200,
         });
 
@@ -55,8 +55,8 @@ module.exports.create = async (req, res) => {
         }
         axios.post('https://dev.infosky.vn/ProcessRequest', dataSend)
             .then((res) => {
-                console.log(`Status: ${res.status}`);
-                console.log('Body: ', res.data);
+                //console.log(`Status: ${res.status}`);
+                //console.log('Body: ', res.data);
             }).catch((err) => {
                 console.error(err);
             });
@@ -71,7 +71,7 @@ module.exports.create = async (req, res) => {
 
         let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, FULL_NAME, KEY_PRESS, SEND_DATE, IS_SEND });
         await sendLogRepository.addSendLog(sendLogInfo)
-        return res.status(400).json({ message: "not sent" });
+        //return res.status(400).json({ message: "not sent" });
     }
     // end of testing function
 
