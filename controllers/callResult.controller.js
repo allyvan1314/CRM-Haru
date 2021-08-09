@@ -32,7 +32,7 @@ module.exports.create = async (req, res) => {
         const dataSend = {
             cmd: "getLeadgenDataFromPublisher",
             campaignId: "HARU_01",
-            token: process.env.TOKEN_VMG,
+            token: "4571ceb1d56d45fcb8ef185e4e1cee71",
             phoneNumber: PHONE_NUMBER
         }
         axios.post('https://dev.infosky.vn/ProcessRequest', dataSend)
