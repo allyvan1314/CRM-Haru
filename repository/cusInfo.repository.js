@@ -1,6 +1,6 @@
 const cusInfo = require("../models/cusInfo.model.js");
 
-async function getCusInfo(phoneNumber){
+async function findCusInfo(phoneNumber){
     return await cusInfo.findOne({PHONE_NUMBER : phoneNumber});
 }
 
@@ -14,6 +14,6 @@ async function addCusInfo(cusInfo) {
 
 
 module.exports = {
-    getCusInfo,
+    findCusInfo,
     addCusInfo,
 };

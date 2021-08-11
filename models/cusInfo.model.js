@@ -23,6 +23,7 @@ const cusInfoSchema = new mongoose.Schema(
         SCORE : Number,
         MARITAL : Number,
         EDUCATION : Number,
+        FLAG: Number,
     },
 );
 
