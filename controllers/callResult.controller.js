@@ -36,6 +36,8 @@ module.exports.create = async (req, res) => {
         let SEND_DATE = Date.now();
         let IS_SEND = true;
         let ERROR_CODE = "";
+        let ERROR_MSG = "";
+        let REQ_ID = "";
 
 
         const dataSend = {
@@ -59,11 +61,13 @@ module.exports.create = async (req, res) => {
                 console.log(`Status: ${res.status}`);
                 console.log('Body: ', res.data);
                 ERROR_CODE = res.data.errorCode;
+                ERROR_MSG = res.data.errorMessage;
+                REQ_ID = res.data.requestId;
                 //console.log(ERROR_CODE);
             }).catch((err) => {
                 console.error(err);
             });
-        let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, KEY_PRESS, FULL_NAME, ID_CARD, ADDRESS, GENDER, BIRTHDAY, PROVINCE, DISTRICT, INCOME, JOB, FLAG, SEND_DATE, IS_SEND, ERROR_CODE });
+        let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, KEY_PRESS, FULL_NAME, ID_CARD, ADDRESS, GENDER, BIRTHDAY, PROVINCE, DISTRICT, INCOME, JOB, FLAG, SEND_DATE, IS_SEND, ERROR_CODE,ERROR_MSG,REQ_ID });
         await sendLogRepository.addSendLog(sendLogInfo)
     }
     else {
