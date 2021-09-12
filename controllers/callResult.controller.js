@@ -6,6 +6,7 @@ const cusInfoRepository = require("../repository/cusInfo.repository.js");
 const sendLog = require("../models/sendLog.model.js");
 const sendLogRepository = require("../repository/sendLog.repository.js");
 const axios = require('axios');
+const dotenv = require("dotenv");
 
 module.exports.create = async (req, res) => {
     let { campaign, group, contact, phone, callid, keypress, duration, talktimes, calldate, status, disposition, cid } = req.query;
@@ -34,15 +35,13 @@ module.exports.create = async (req, res) => {
         let FLAG = cusInfo.FLAG;
         let SEND_DATE = Date.now();
         let IS_SEND = true;
+        let ERROR_CODE = "";
 
-
-        let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, KEY_PRESS, FULL_NAME, ID_CARD, ADDRESS, GENDER, BIRTHDAY, PROVINCE, DISTRICT, INCOME, JOB, FLAG, SEND_DATE, IS_SEND, });
-        await sendLogRepository.addSendLog(sendLogInfo)
 
         const dataSend = {
-            cmd: "getLeadgenDataFromPublisher",
-            campaignId: "HARU_VMS",
-            token: "4571ceb1d56d45fcb8ef185e4e1cee71",
+            cmd: process.env.CMD_VMG,
+            campaignId: process.env.CAMPAIGN_VMG,
+            token: process.env.TOKEN_VMG,
             fullname: FULL_NAME,
             nationalId: ID_CARD,
             address: ADDRESS,
@@ -55,13 +54,17 @@ module.exports.create = async (req, res) => {
             job: JOB,
             flag: FLAG
         }
-        axios.post('https://dev.infosky.vn/ProcessRequest', dataSend)
+        await axios.post(process.env.URL_VMG, dataSend)
             .then((res) => {
                 console.log(`Status: ${res.status}`);
                 console.log('Body: ', res.data);
+                ERROR_CODE = res.data.errorCode;
+                //console.log(ERROR_CODE);
             }).catch((err) => {
                 console.error(err);
             });
+        let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, KEY_PRESS, FULL_NAME, ID_CARD, ADDRESS, GENDER, BIRTHDAY, PROVINCE, DISTRICT, INCOME, JOB, FLAG, SEND_DATE, IS_SEND, ERROR_CODE });
+        await sendLogRepository.addSendLog(sendLogInfo)
     }
     else {
         let PHONE_NUMBER = phone;

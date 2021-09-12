@@ -26,6 +26,7 @@ const sendLogSchema = new mongoose.Schema(
         FLAG: Number,
         SEND_DATE: Date,
         IS_SEND: Boolean,
+        ERROR_CODE: String,
     },
 );
 
