@@ -41,7 +41,7 @@ module.exports.create = async (req, res) => {
 
         const dataSend = {
             cmd: "getLeadgenDataFromPublisher",
-            campaignId: "HARU_01",
+            campaignId: "HARU_VMS",
             token: "4571ceb1d56d45fcb8ef185e4e1cee71",
             fullname: FULL_NAME,
             nationalId: ID_CARD,
