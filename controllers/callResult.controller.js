@@ -18,8 +18,9 @@ module.exports.create = async (req, res) => {
     await callResultRepository.addCallResult(info)
     res.sendStatus(200)
 
-    let cusInfo = await cusInfoRepository.findCusInfo(phone)
+    
     if (keypress === "1" || keypress === "1,1" || keypress === "1,1,1") {
+        let cusInfo = await cusInfoRepository.findCusInfo(phone)
         let PHONE_NUMBER = phone;
         let CUSTOMER_ID = cusInfo.CUSTOMER_ID;
         let FULL_NAME = cusInfo.FULL_NAME;
@@ -72,13 +73,11 @@ module.exports.create = async (req, res) => {
     }
     else {
         let PHONE_NUMBER = phone;
-        let CUSTOMER_ID = cusInfo.CUSTOMER_ID;
-        let FULL_NAME = cusInfo.FULL_NAME;
         let KEY_PRESS = keypress;
         let SEND_DATE = Date.now();
         let IS_SEND = false;
 
-        let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, FULL_NAME, KEY_PRESS, SEND_DATE, IS_SEND });
+        let sendLogInfo = new sendLog({ PHONE_NUMBER, KEY_PRESS, SEND_DATE, IS_SEND });
         await sendLogRepository.addSendLog(sendLogInfo)
         console.log('not send');
     }
