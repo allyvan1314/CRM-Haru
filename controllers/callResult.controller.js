@@ -9,10 +9,10 @@ const axios = require('axios');
 const dotenv = require("dotenv");
 
 module.exports.create = async (req, res) => {
-    let { msgid, campaign, group, contact, phone, callid, keypress, duration, talktimes, calldate, status, disposition, cid } = req.query;
+    let { msgid, campaign, group, contact, phone, callid, keypress, duration, billsec, calldate, status, disposition, cid } = req.query;
 
     let info = new callResult({
-        msgid, campaign, group, contact, phone, callid, keypress, duration, talktimes, calldate, status, disposition, cid
+        msgid, campaign, group, contact, phone, callid, keypress, duration, billsec, calldate, status, disposition, cid
     });
 
     await callResultRepository.addCallResult(info)
