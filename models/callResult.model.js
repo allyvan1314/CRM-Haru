@@ -10,7 +10,7 @@ const callResultSchema = new mongoose.Schema(
         callid : String,
         keypress: String,
         duration : String,
-        talktimes : String,
+        billsec : String,
         calldate : String,
         status : String,
         disposition: String,
