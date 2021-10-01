@@ -19,7 +19,7 @@ module.exports.createKyc = async (req, res) => {
         return;
     }
 
-    if(name == null && birthday == null && gender == null && name == "" && birthday == "" && gender == "")
+    if((name == null || name == "") && (birthday == null ||birthday == "") && (gender == null || gender == ""))
     {
         res.send(response.handleInfoError(null,"Info invalid"));
         return;
