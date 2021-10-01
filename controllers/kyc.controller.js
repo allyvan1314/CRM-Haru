@@ -12,6 +12,7 @@ module.exports.createKyc = async (req, res) => {
     let info = new kyc({
         phone, name, birthday, gender, survey
     });
+    let id = info._id.toHexString();
 
     if(phone == null ){
         res.send(response.handleNullPhoneError(null, "Phone Number null"));
@@ -32,7 +33,7 @@ module.exports.createKyc = async (req, res) => {
             return;
         }
         else{
-            res.send(response.handleSuccess(info,"Success"))
+            res.send(response.handleSuccess({id,phone},"Success"))
             return;
         }
      })

@@ -22,6 +22,7 @@ app.get('/', (req, res) => {
 const getcallResultRoute = require('./routes/getCallResult.route')
 const resendVMGRoute = require('./routes/resendVMG.route')
 const kycRoute = require('./routes/kyc.route')
+const leadStatus = require ('./routes/leadStatus.route')
 // const sendCampaignRoute = require('./routes/sendCampaign.route')
 // const getCusInfo = require('./routes/cusInfo.route')
 
@@ -45,6 +46,7 @@ mongoose.connect(
 app.use('/api/v3/callResult', getcallResultRoute)
 app.use('/api/v3/resend',resendVMGRoute)
 app.use('/api/v3/kyc',kycRoute)
+app.use('/api/v3/leadStatus',leadStatus)
 // app.use('/api/v3/sendCampaign', sendCampaignRoute)
 // app.use('/api/v3/cusInfo',getCusInfo)
 

@@ -17,7 +17,7 @@ const kycSchema = new mongoose.Schema(
         gender: Number,
         survey: [eachSurvey],
     },
-    
+    {timestamps:true}
 );
 
 module.exports = mongoose.model("kyc", kycSchema);
