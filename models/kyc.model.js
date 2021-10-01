@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const eachKyc = new mongoose.Schema({
+const eachSurvey = new mongoose.Schema({
     _id : false,
     question: String,
     answer: String,
@@ -8,10 +8,14 @@ const eachKyc = new mongoose.Schema({
 
 const kycSchema = new mongoose.Schema(
     {
+        phone: {
+            type: String,
+            require: true,
+        },
         name: String,
         birthday: String,
         gender: Number,
-        kycResult: [eachKyc],
+        survey: [eachSurvey],
     },
     
 );
