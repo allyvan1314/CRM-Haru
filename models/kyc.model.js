@@ -1,19 +1,19 @@
 const mongoose = require("mongoose");
 
-const eachSurvey = new mongoose.Schema({
+const eachKyc = new mongoose.Schema({
     _id : false,
     question: String,
     answer: String,
 })
 
-const surveySchema = new mongoose.Schema(
+const kycSchema = new mongoose.Schema(
     {
         name: String,
         birthday: String,
         gender: Number,
-        surveyResult: [eachSurvey],
+        kycResult: [eachKyc],
     },
     
 );
 
-module.exports = mongoose.model("survey", surveySchema);
+module.exports = mongoose.model("kyc", kycSchema);
