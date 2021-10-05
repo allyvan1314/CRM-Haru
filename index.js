@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 // define a root route
 app.get('/', (req, res) => {
-  res.send("API VOIP ");
+  res.send("API Haru Media ");
 });
 
 const getcallResultRoute = require('./routes/getCallResult.route')
@@ -43,10 +43,11 @@ mongoose.connect(
 
 
 // using as middleware
-app.use('/api/v3/callResult', getcallResultRoute)
-app.use('/api/v3/resend',resendVMGRoute)
-app.use('/api/v3/kyc',kycRoute)
-app.use('/api/v3/leadStatus',leadStatus)
+const version = process.env.version
+app.use(version+'/callResult', getcallResultRoute)
+app.use(version+'/resend',resendVMGRoute)
+app.use(version+'/kyc',kycRoute)
+app.use(version+'/leadStatus',leadStatus)
 // app.use('/api/v3/sendCampaign', sendCampaignRoute)
 // app.use('/api/v3/cusInfo',getCusInfo)
 
