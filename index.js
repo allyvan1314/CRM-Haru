@@ -43,7 +43,7 @@ mongoose.connect(
 
 
 // using as middleware
-const version = process.env.version
+const version = process.env.VERSION
 app.use(version+'/callResult', getcallResultRoute)
 app.use(version+'/resend',resendVMGRoute)
 app.use(version+'/kyc',kycRoute)
@@ -53,5 +53,5 @@ app.use(version+'/leadStatus',leadStatus)
 
 // listen for requests
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+  console.log(`Server ${version} is listening on port ${port}`);
 });
