@@ -26,7 +26,7 @@ module.exports.createKyc = async (req, res) => {
     }
 
     let data = sendLogRepository.getLogByPhone(phone)
-    data.then(function(result) {
+    data.then( async function(result) {
         //console.log(result) // "Some User token"
         if(result == ""){
             res.send(response.handleInvalidPhoneError(null, "Phone Number invalid"));
