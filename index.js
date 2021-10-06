@@ -8,7 +8,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 
 // Setup server port
-const port = process.env.PORT||5000;
+const port = process.env.PORT;
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -43,15 +43,15 @@ mongoose.connect(
 
 
 // using as middleware
-const version = process.env.VERSION
-app.use(version+'/callResult', getcallResultRoute)
-app.use(version+'/resend',resendVMGRoute)
-app.use(version+'/kyc',kycRoute)
-app.use(version+'/leadStatus',leadStatus)
+const link = process.env.VERSION
+app.use('/api/v3/callResult', getcallResultRoute)
+app.use('/api/v3/resend',resendVMGRoute)
+app.use('/api/v3/kyc',kycRoute)
+app.use('/api/v3/leadStatus',leadStatus)
 // app.use('/api/v3/sendCampaign', sendCampaignRoute)
 // app.use('/api/v3/cusInfo',getCusInfo)
 
 // listen for requests
 app.listen(port, () => {
-  console.log(`Server ${version} is listening on port ${port}`);
+  console.log(`Server is listening on port ${port}`);
 });

@@ -33,6 +33,7 @@ module.exports.createKyc = async (req, res) => {
             return;
         }
         else{
+            await kycRepository.addKyc(info)
             res.send(response.handleSuccess({id,phone},"Success"))
             return;
         }
@@ -40,7 +41,7 @@ module.exports.createKyc = async (req, res) => {
     //console.log(data)
     
 
-    await kycRepository.addKyc(info)
+    
 
     
 };
