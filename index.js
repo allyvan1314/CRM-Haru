@@ -11,7 +11,9 @@ const cors = require("cors");
 const port = process.env.PORT;
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
 // define a root route
@@ -22,18 +24,20 @@ app.get('/', (req, res) => {
 const getcallResultRoute = require('./routes/getCallResult.route')
 const resendVMGRoute = require('./routes/resendVMG.route')
 const kycRoute = require('./routes/kyc.route')
-const leadStatus = require ('./routes/leadStatus.route')
+const leadStatus = require('./routes/leadStatus.route')
 // const sendCampaignRoute = require('./routes/sendCampaign.route')
 // const getCusInfo = require('./routes/cusInfo.route')
 
 dotenv.config();
-app.use(cors({ credentials: true, origin: true }));
+app.use(cors({
+  credentials: true,
+  origin: true
+}));
 app.use(express.json());
 
 // connect db
 mongoose.connect(
-  process.env.URL,
-  {
+  process.env.URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -43,11 +47,11 @@ mongoose.connect(
 
 
 // using as middleware
-const link = process.env.VERSION
-app.use('/api/v3/callResult', getcallResultRoute)
-app.use('/api/v3/resend',resendVMGRoute)
-app.use('/api/v3/kyc',kycRoute)
-app.use('/api/v3/leadStatus',leadStatus)
+const VERSION = process.env.VERSION
+app.use(VERSION + '/callResult', getcallResultRoute)
+app.use(VERSION + '/resend', resendVMGRoute)
+app.use(VERSION + '/kyc', kycRoute)
+app.use(VERSION + '/leadStatus', leadStatus)
 // app.use('/api/v3/sendCampaign', sendCampaignRoute)
 // app.use('/api/v3/cusInfo',getCusInfo)
 
