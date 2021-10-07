@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/resendVMG.controller.js");
+const controller = require("../controllers/leadStatus.controller.js");
 
-router.post("/", (req, res) => {
-    res.send("lót thing ");
-  });
+router.post("/", controller.create);
 module.exports = router;
