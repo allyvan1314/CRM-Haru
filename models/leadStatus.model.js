@@ -1,9 +1,12 @@
 const mongoose = require("mongoose")
-const leadStatusSchema = new mongoose.Schema({
+const leadStatusSchema = new mongoose.Schema(
+    {
     status: String,
     reason: JSON||String,
     requestid: String,
-})
+    },
+    {timestamps: true}
+)
 const reasonDetail = new mongoose.Schema({
     traceNo:String,
     code: Number,

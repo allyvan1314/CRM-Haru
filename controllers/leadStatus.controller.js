@@ -32,7 +32,7 @@ module.exports.create = async (req, res) => {
             requestid
         });
         await leadStatusRepository.addLeadStatus(info)
-        res.sendStatus(200);
+        res.send(response.handleSuccess({requestid},"Success 👌"))
         return;
     }
     else{
@@ -42,12 +42,8 @@ module.exports.create = async (req, res) => {
             requestid
         });
         await leadStatusRepository.addLeadStatus(info)
-        res.sendStatus(200);
+        res.send(response.handleSuccess({requestid},"Success 👌"))
+        return;
     }
-    
-
-
-
-    //await leadStatusRepository.addLeadStatus(info)
 
 }
