@@ -53,7 +53,7 @@ app.use(VERSION + '/callResult', getcallResultRoute)
 app.use(VERSION + '/resend', resendVMGRoute)
 app.use(VERSION + '/kyc', kycRoute)
 app.use(VERSION + '/leadStatus', leadStatus)
-app.use(VERSION+ '/facebook/webhook',facebook)
+app.use(VERSION+ '/facebook',facebook)
 // app.use('/api/v3/sendCampaign', sendCampaignRoute)
 // app.use('/api/v3/cusInfo',getCusInfo)
 
