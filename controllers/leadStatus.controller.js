@@ -42,8 +42,8 @@ module.exports.create = async (req, res) => {
             requestid
         });
         await leadStatusRepository.addLeadStatus(info)
-        res.send(response.handleSuccess({requestid},"Success 👌"))
+        res.send(response.handleSuccess({requestid},"Success  "))
         return;
     }
 
-}
+} 

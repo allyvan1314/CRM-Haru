@@ -17,6 +17,6 @@
     "express": "^4.17.1",
     "helmet": "^4.6.0",
     "mongoose": "^5.13.5",
-    "rsa-json": "^0.2.1"
+    "rsa-json": "^0.0.2"
   }
 }
