@@ -15,6 +15,7 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-x-hub": "^1.0.4",
     "helmet": "^4.6.0",
     "mongoose": "^5.13.5",
     "rsa-json": "^0.0.2"

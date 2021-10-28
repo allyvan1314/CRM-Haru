@@ -1,6 +1,7 @@
 const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
+var xhub = require('express-x-hub');
 
 const router = express.Router();
 
@@ -28,20 +29,18 @@ router.get('/webhook', (req, res) => {
 // POST /webhook
 router.post('/webhook', async (req, res) => {
     // Facebook will be sending an object called "entry" for "leadgen" webhook event
-    if (!req.body.entry) {
-        return res.status(500).send({ error: 'Invalid POST data received' });
+    console.log('Facebook request body:', req.body);
+
+    if (!req.isXHubValid()) {
+        console.log('Warning - request header X-Hub-Signature not present or invalid');
+        res.sendStatus(401);
+        return;
     }
 
-    // Travere entries & changes and process lead IDs
-    for (const entry of req.body.entry) {
-        for (const change of entry.changes) {
-            // Process new lead (leadgen_id)
-            await processNewLead(change.value.leadgen_id);
-        }
-    }
-
-    // Success
-    res.send({ success: true });
+    console.log('request header X-Hub-Signature validated');
+    // Process the Facebook updates here
+    received_updates.unshift(req.body);
+    res.sendStatus(200);
 })
 
 // app.listen(port, () => {
@@ -55,8 +54,7 @@ async function processNewLead(leadId) {
     try {
         // Get lead details by lead ID from Facebook API
         response = await axios.get(`https://graph.facebook.com/v12.0/${leadId}/?access_token=${FACEBOOK_PAGE_ACCESS_TOKEN}`);
-    }
-    catch (err) {
+    } catch (err) {
         // Log errors
         return console.warn(`An invalid response was received from the Facebook API:`, err.response.data ? JSON.stringify(err.response.data) : err.response);
     }
