@@ -31,16 +31,20 @@ router.post('/webhook', async (req, res) => {
     // Facebook will be sending an object called "entry" for "leadgen" webhook event
     console.log('Facebook request body:', req.body);
 
-    // if (!req.isXHubValid()) {
-    //     console.log('Warning - request header X-Hub-Signature not present or invalid');
-    //     res.sendStatus(401);
-    //     return;
-    // }
+    if (!req.body.entry) {
+        return res.status(500).send({ error: 'Invalid POST data received' });
+    }
 
-    // console.log('request header X-Hub-Signature validated');
-    // // Process the Facebook updates here
-    // received_updates.unshift(req.body);
-    res.sendStatus(200);
+    // Travere entries & changes and process lead IDs
+    for (const entry of req.body.entry) {
+        for (const change of entry.changes) {
+            // Process new lead (leadgen_id)
+            await processNewLead(change.value.leadgen_id);
+        }
+    }
+
+    // Success
+    res.send({ success: true });
 })
 
 // app.listen(port, () => {
