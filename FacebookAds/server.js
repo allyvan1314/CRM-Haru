@@ -9,7 +9,7 @@ const router = express.Router();
 // const port = 3000;
 
 // Enter the Page Access Token from the previous step
-const FACEBOOK_PAGE_ACCESS_TOKEN = 'EAAEbeW79Bo0BAM70cbRg21ZCeUIV9ffJ2Ytb2bphulK8k7ourw2DWPCymWfrDT8gPT0ZBD1wc1YgPZAiWeFuFZANL7NaxJuqWCVGFVZBAMiCxFLMIASMyJTcT7oIccT4Ws67NVTYigWYZAOKSnaZAWOo1WGYCQspeTZAGx6QSPgBKBZBQseSeSY1k4afRQuLOcUctX5HLPFXWAAoTDCdwKSXJDd1XigvDwI8ZD';
+const FACEBOOK_PAGE_ACCESS_TOKEN = 'EAAEbeW79Bo0BAAK64SxU4LdXYZAyb7fMnaZA4T2dpVOFzrU2MVwHOFasfAnKUsdk6uZAQuBYvAKZBDj57ZCJZAdDhTLnTiaAwr4JBhukpiFU0RswAQgXgfCMwwPOhmkqzcBq2AD8OpOPTIE9j7buyTqWCOI6iL25NW0feYhetBYeNwgonH0GPujfpgkTie6Gbj4M29w0AVeAZDZD';
 
 // Accept JSON POST body
 router.use(bodyParser.json());
@@ -40,7 +40,7 @@ router.post('/webhook', async (req, res) => {
     // console.log('request header X-Hub-Signature validated');
     // // Process the Facebook updates here
     // received_updates.unshift(req.body);
-    res.sendStatus(200);
+    // res.sendStatus(200);
 })
 
 // app.listen(port, () => {
