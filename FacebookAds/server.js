@@ -9,7 +9,7 @@ const router = express.Router();
 // const port = 3000;
 
 // Enter the Page Access Token from the previous step
-const FACEBOOK_PAGE_ACCESS_TOKEN = 'EAAMnXZABvd4MBACj7zkwWZC1RPhciYVgXfqpAoYgk0Tbllgb8wBSMNR97LckDivZByux9zzNmk11wkwSWwL2WLRwFNB6lE1db7ZB0O3GY4IZBOGyOsrcfvPwXJZBMiNWPILA2MUKpBzeMd4wqGBthR9I222RCjXG8qDfVKqc3dxEiue02zR4y7nP87ZAYg0MJeR6hd9qqUXosPtAHUvuEA2JCFeQu9mlIwZD';
+const FACEBOOK_PAGE_ACCESS_TOKEN = 'EAAEbeW79Bo0BAH5geiM7dWyZBLg0ijRwmRNQEnsLV3tJgHvUpOi04WATsRaTrzk0EZABAGktAoisgRfQA4RBvPHH690zRqYt380rgVDGHte8aVOSpLu4hAEnJoY3ewa9BvMSPZA149UMjGvAa8YG97gwI1d1VJVZBz0i7pSWKffPog7xXrZCPouWEYgI6EknrBXDQLAsISgZDZD';
 
 // Accept JSON POST body
 router.use(bodyParser.json());
@@ -31,15 +31,15 @@ router.post('/webhook', async (req, res) => {
     // Facebook will be sending an object called "entry" for "leadgen" webhook event
     console.log('Facebook request body:', req.body);
 
-    if (!req.isXHubValid()) {
-        console.log('Warning - request header X-Hub-Signature not present or invalid');
-        res.sendStatus(401);
-        return;
-    }
+    // if (!req.isXHubValid()) {
+    //     console.log('Warning - request header X-Hub-Signature not present or invalid');
+    //     res.sendStatus(401);
+    //     return;
+    // }
 
-    console.log('request header X-Hub-Signature validated');
-    // Process the Facebook updates here
-    received_updates.unshift(req.body);
+    // console.log('request header X-Hub-Signature validated');
+    // // Process the Facebook updates here
+    // received_updates.unshift(req.body);
     res.sendStatus(200);
 })
 
