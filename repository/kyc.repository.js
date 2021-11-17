@@ -1,4 +1,4 @@
-const kyc = require("../models/kyc.model.js");
+const kyc = require("../models/api/kyc.model.js");
 
 async function addKyc(kyc) {
     try {

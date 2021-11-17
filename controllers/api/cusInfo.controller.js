@@ -1,5 +1,5 @@
-const cusInfo = require("../models/cusInfo.model.js");
-const cusInfoRepository = require("../repository/cusInfo.repository.js");
+const cusInfo = require("../../models/api/cusInfo.model.js");
+const cusInfoRepository = require("../../repository/cusInfo.repository.js");
 
 //PHONE_NUMBER, CUSTOMER_ID, FULL_NAME, ID_CARD, PHONE_NUMBER_ID, GENDER, INCOME, BIRTHDAY, ADDRESS, PROVINCE, DISTRICT, COMPANY_NAME, COMPANY_ADDRESS, LOAN_AMOUNT, JOB, SOURCE, TELCO, SCORE_RANGE, SCORE, MARITAL, EDUCATION
 

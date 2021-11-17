@@ -1,4 +1,4 @@
-const leadStatus = require("../models/leadStatus.model")
+const leadStatus = require("../models/api/leadStatus.model")
 
 async function addLeadStatus(leadStatus){
     try {

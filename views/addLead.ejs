@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Haru - Add new Lead</title>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css' rel='stylesheet'>
+</head>
+
+<body oncontextmenu='return false' class='snippet-body'>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <img src="https://haru-media.com/wp-content/uploads/2020/09/Haru-Logo.png">
+            <input id="username" value="<%= username %>"readonly></input>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row header" style="text-align:center;color:green">
+            <h3>Thêm thông tin Lead mới</h3>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <form action="/addLead" id="add_lead_form" method="post">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label" for="loan_amount">Số tiền vay*</label>
+                                <input type="text" class="form-control" name="loan_amount" placeholder=""
+                                    id="loan_amount">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label" for="loan_duration">Kỳ hạn vay (tháng)*</label>
+                                <input type="text" class="form-control" name="loan_duration" placeholder=""
+                                    id="loan_duration">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label" for="cus_name">Tên KH*</label>
+                                <input type="text" class="form-control" name="cus_name" placeholder="" id="cus_name">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label" for="cus_id">CMND/CCCD*</label>
+                                <input type="text" class="form-control" name="cus_id" placeholder="" id="cus_id">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label class="col-form-label" for="cus_phone">Số điện thoại*</label>
+                                <input type="text" class="form-control" name="cus_phone" placeholder="" id="cus_phone">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label" for="cus_dob">Ngày sinh*</label>
+                                <input type="text" class="form-control" name="cus_dob" placeholder="" id="cus_dob">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="col-form-label" for="cus_gender">Giới tính*</label>
+                                <select class="form-control" id="cus_gender" for="cus_gender" name="cus_gender">
+                                    <option hidden value="">Giới tính</option>
+                                    <option value="Nam"> Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </select>
+                                <!-- <script defer>
+                                    jQuery('#cus_gender').val("<?=cus_gender ?>")
+                                </script> -->
+                            </div>
+                            <!-- <fieldset class="form-group" for="cus_gender">
+                                <label class="col-form-label" for="cus_gender">Giới tính*</label>
+                                <div>
+                                    <input type="radio" id="cus_gender" name="cus_gender" style="margin-left: 30px;"
+                                        value="Nam">
+                                    <label for="cus_gender">Nam</label>
+
+                                    <input type="radio" id="cus_gender" name="cus_gender" style="margin-left: 30px;"
+                                        value="Nữ">
+                                    <label for="cus_gender">Nữ</label>
+                                </div>
+                            </fieldset> -->
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Tỉnh/Thành phố*</label>
+                                <select class="form-control" id="calc_shipping_city">
+                                    <option value="">Tỉnh / Thành phố</option>
+                                </select>
+                                <input type="hidden" class="address_1" name="cus_cur_city" id="cus_cur_city">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label" for="cus_cur_district">Quận/Huyện*</label>
+                                <select class="form-control" id="calc_shipping_district">
+                                    <option value="">Quận / Huyện</option>
+                                </select>
+                                <input class="address_2" name="cus_cur_district" type="hidden">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label class="col-form-label" for="cus_cur_ward">Xã/Phường* </label>
+                                <input type="text" class="form-control" name="cus_cur_ward" id="cus_cur_ward">
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="form-group">
+                                <label class="col-form-label" for="cus_cur_address">Địa chỉ* </label>
+                                <input type="text" class="form-control" name="cus_cur_address" placeholder=""
+                                    id="cus_cur_address">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label class="col-form-label" for="cus_income">Thu nhập hàng tháng*</label>
+                                <input type="text" class="form-control" name="cus_income" placeholder=""
+                                    id="cus_income">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label" for="cus_income_type">Loại hình thu nhập*</label>
+                                <select class="form-control" id="cus_income_type" name="cus_income_type"
+                                    for="cus_income_type" id="cus_income_type">
+                                    <option value="">Loại hình thu nhập</option>
+                                    <option>Tự kinh doanh</option>
+                                    <option>Việc làm ổn định</option>
+                                    <option>Việc làm không thường xuyên</option>
+                                    <option>Sinh viên</option>
+                                    <option>Nghỉ hưu</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="center" style="margin-top:10px">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                        <a href="/" class="btn btn-light">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script async="async" defer="defer"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script async="async" defer="defer" src="https://apis.google.com/js/api:client.js" gapi_processed="true"></script>
+    <script async="async" defer="defer"
+        src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js"></script>
+    <script>
+        //<![CDATA[
+        window.addEventListener('load', function () {
+            if (address_2 = localStorage.getItem('address_2_saved')) {
+                $('#calc_shipping_district option').each(function () {
+                    if ($(this).text() == address_2) { $(this).attr('selected', '') }
+                })
+                $('input.address_2').attr('value', address_2)
+            }
+            if (district = localStorage.getItem('district')) {
+                $('#calc_shipping_district').html(district)
+                $('#calc_shipping_district').on('change', function () {
+                    var target = $(this).children('option:selected')
+                    target.attr('selected', '')
+                    $('#calc_shipping_district option').not(target).removeAttr('selected')
+                    address_2 = target.text()
+                    $('input.address_2').attr('value', address_2)
+                    district = $('#calc_shipping_district').html()
+                    localStorage.setItem('district', district)
+                    localStorage.setItem('address_2_saved', address_2)
+                })
+            }
+            $("#calc_shipping_city").each(function () {
+                var $this = $(this),
+                    stc = ''
+                c.forEach(function (i, e) {
+                    e += +1
+                    stc += '<option value=' + e + '>' + i + '</option>'
+                    $this.html('<option value="">Tỉnh / Thành phố</option>' + stc)
+                    if (address_1 = localStorage.getItem('address_1_saved')) {
+                        $('#calc_shipping_city option').each(function () {
+                            if ($(this).text() == address_1) {
+                                $(this).attr('selected', '')
+                            }
+                        })
+                        $('input.address_1').attr('value', address_1)
+                    }
+                    $this.on('change', function (i) {
+                        i = $this.children('option:selected').index() - 1
+                        var str = '',
+                            r = $this.val()
+                        if (r != '') {
+                            arr[i].forEach(function (el) {
+                                str += '<option value="' + el + '">' + el + '</option>'
+                                $('#calc_shipping_district').html('<option value="">Quận / Huyện</option>' + str)
+                            })
+                            var address_1 = $this.children('option:selected').text()
+                            var district = $('#calc_shipping_district').html()
+                            localStorage.setItem('address_1_saved', address_1)
+                            localStorage.setItem('district', district)
+                            $('#calc_shipping_district').on('change', function () {
+                                var target = $(this).children('option:selected')
+                                target.attr('selected', '')
+                                $('#calc_shipping_district option').not(target).removeAttr('selected')
+                                var address_2 = target.text()
+                                $('input.address_2').attr('value', address_2)
+                                district = $('#calc_shipping_district').html()
+                                localStorage.setItem('district', district)
+                                localStorage.setItem('address_2_saved', address_2)
+                            })
+                        } else {
+                            $('#calc_shipping_district').html('<option value="">Quận / Huyện</option>')
+                            district = $('#calc_shipping_district').html()
+                            localStorage.setItem('district', district)
+                            localStorage.removeItem('address_1_saved', address_1)
+                        }
+                    })
+                })
+            })
+        })
+    //]]>
+    </script>
+</body>
+
+</html>

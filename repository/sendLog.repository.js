@@ -1,4 +1,4 @@
-const sendLog = require("../models/sendLog.model.js");
+const sendLog = require("../models/api/sendLog.model.js");
 
 async function addSendLog(sendLog) {
     try {

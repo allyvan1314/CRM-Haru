@@ -1,8 +1,8 @@
-const leadStatus = require('../models/leadStatus.model.js');
-const leadStatusRepository = require('../repository/leadStatus.repository');
-const response = require("../Config/responsive/handle");
-const sendLog = require("../models/sendLog.model.js")
-const sendLogRepository = require("../repository/sendLog.repository.js");
+const leadStatus = require('../../models/api/leadStatus.model.js');
+const leadStatusRepository = require('../../repository/leadStatus.repository');
+const response = require("../../Config/responsive/handle");
+const sendLog = require("../../models/api/sendLog.model.js")
+const sendLogRepository = require("../../repository/sendLog.repository.js");
 const { crossOriginResourcePolicy } = require('helmet');
 
 module.exports.create = async (req, res) => {

@@ -1,5 +1,5 @@
-const cusInfoController = require('../../controllers/cusInfo.controller.js')
-const CusInfo = require("../../models/cusInfo.model");
+const cusInfoController = require('../../controllers/api/cusInfo.controller.js')
+const CusInfo = require("../../models/api/cusInfo.model");
 const cusInfoRepository = require("../../repository/cusInfo.repository.js");
 
 module.exports = async function querryCusInfo(req, res, next) {

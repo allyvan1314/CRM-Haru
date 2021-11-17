@@ -1,24 +1,30 @@
-const callResult = require("../models/callResult.model");
-const callResultRepository = require("../repository/callResult.repository");
-const response = require("../Config/responsive/handle");
-const cusInfo = require("../models/cusInfo.model.js");
-const cusInfoRepository = require("../repository/cusInfo.repository.js");
-const sendLog = require("../models/sendLog.model.js");
-const sendLogRepository = require("../repository/sendLog.repository.js");
+const callResult = require("../../models/api/callResult.model");
+const callResultRepository = require("../../repository/callResult.repository");
+const response = require("../../Config/responsive/handle");
+const cusInfo = require("../../models/api/cusInfo.model.js");
+const cusInfoRepository = require("../../repository/cusInfo.repository.js");
+const sendLog = require("../../models/api/sendLog.model.js");
+const sendLogRepository = require("../../repository/sendLog.repository.js");
 const axios = require('axios');
 const dotenv = require("dotenv");
 
 module.exports.create = async (req, res) => {
-    let {phones} = req.query;
+    let { msgid, campaign, group, contact, phone, callid, keypress, duration, billsec, calldate, status, disposition, cid } = req.query;
 
-    var arr = phones.toString().split(",");
-    //console.log(phones)
-    for (var i = 0; i < arr.length; i++) {
-        let cusInfo = await cusInfoRepository.findCusInfo(arr[i])
-        let PHONE_NUMBER = arr[i];
+    let info = new callResult({
+        msgid, campaign, group, contact, phone, callid, keypress, duration, billsec, calldate, status, disposition, cid
+    });
+
+    await callResultRepository.addCallResult(info)
+    res.sendStatus(200)
+
+    
+    if (keypress === "1" || keypress === "1,1" || keypress === "1,1,1") {
+        let cusInfo = await cusInfoRepository.findCusInfo(phone)
+        let PHONE_NUMBER = phone;
         let CUSTOMER_ID = cusInfo.CUSTOMER_ID;
         let FULL_NAME = cusInfo.FULL_NAME;
-        let KEY_PRESS = "1";
+        let KEY_PRESS = keypress;
         let ID_CARD = cusInfo.ID_CARD;
         let ADDRESS = cusInfo.ADDRESS;
         let GENDER = cusInfo.GENDER;
@@ -62,8 +68,18 @@ module.exports.create = async (req, res) => {
             }).catch((err) => {
                 console.error(err);
             });
-        let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, KEY_PRESS, FULL_NAME, ID_CARD, ADDRESS, GENDER, BIRTHDAY, PROVINCE, DISTRICT, INCOME, JOB, FLAG, SEND_DATE, IS_SEND, ERROR_CODE, ERROR_MSG, REQ_ID });
+        let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, KEY_PRESS, FULL_NAME, ID_CARD, ADDRESS, GENDER, BIRTHDAY, PROVINCE, DISTRICT, INCOME, JOB, FLAG, SEND_DATE, IS_SEND, ERROR_CODE,ERROR_MSG,REQ_ID });
         await sendLogRepository.addSendLog(sendLogInfo)
-        //console.log(arr[i]);
     }
+    else {
+        let PHONE_NUMBER = phone;
+        let KEY_PRESS = keypress;
+        let SEND_DATE = Date.now();
+        let IS_SEND = false;
+
+        let sendLogInfo = new sendLog({ PHONE_NUMBER, KEY_PRESS, SEND_DATE, IS_SEND });
+        await sendLogRepository.addSendLog(sendLogInfo)
+        console.log('not send');
+    }
+
 };

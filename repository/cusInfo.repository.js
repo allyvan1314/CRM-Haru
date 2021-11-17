@@ -1,4 +1,4 @@
-const cusInfo = require("../models/cusInfo.model.js");
+const cusInfo = require("../models/api/cusInfo.model.js");
 
 async function findCusInfo(phoneNumber){
     return await cusInfo.findOne({PHONE_NUMBER : phoneNumber});

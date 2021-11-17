@@ -1,8 +1,8 @@
-const kyc = require("../models/kyc.model")
-const kycRepository = require("../repository/kyc.repository")
-const response = require("../Config/responsive/handle")
-const sendLog = require("../models/sendLog.model.js")
-const sendLogRepository = require("../repository/sendLog.repository.js")
+const kyc = require("../../models/api/kyc.model")
+const kycRepository = require("../../repository/kyc.repository")
+const response = require("../../Config/responsive/handle")
+const sendLog = require("../../models/api/sendLog.model.js")
+const sendLogRepository = require("../../repository/sendLog.repository.js")
 
 module.exports.createKyc = async (req, res) => {
     let { phone, name, birthday, gender, survey } = req.body;
