@@ -216,10 +216,26 @@ const checkLead = async (req, res, next) => {
     }
 }
 
+const getImportExcelView = (req, res, next) => {
+    res.render('importExcel', {
+        username: req.user.username,
+    });
+}
+
+const importExcel = (req, res, next) => {
+    res.render('importExcel', {
+        username: req.user.username,
+    });
+}
+
+
+
 module.exports = {
     getAllLeads,
     getAddLeadView,
     addLead,
     checkLeadView,
-    checkLead
+    checkLead,
+    getImportExcelView,
+    importExcel
 }

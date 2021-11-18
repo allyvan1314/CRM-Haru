@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Haru - Add new Lead</title>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css' rel='stylesheet'>
+</head>
+
+<body oncontextmenu='return false' class='snippet-body'>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <img src="https://haru-media.com/wp-content/uploads/2020/09/Haru-Logo.png">
+            <input id="username" name="username" value="<%= username %>" readonly></input>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row header" style="text-align:center;color:green">
+            <h3>Thêm thông tin lead bằng Excel</h3>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <form action="/importExcel" id="add_lead_form" method="post">
+                    <div class="row">
+                        <div class="col-sm-6">\
+                            <form>
+                                <label for="myfile">Select a file:</label>
+                                <input type="file" id="myfile" name="myfile"><br><br>
+                                <input type="submit">
+                            </form>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <script async="async" defer="defer"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script async="async" defer="defer" src="https://apis.google.com/js/api:client.js"
+            gapi_processed="true"></script>
+        <script async="async" defer="defer"
+            src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js"></script>
+</body>
+
+</html>

@@ -8,7 +8,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
 const User = require("./models/portal/users_model")
-const {getAllLeads,getAddLeadView,addLead,checkLeadView,checkLead} = require('./controllers/portal/leadController');
+const {getAllLeads,getAddLeadView,addLead,checkLeadView,checkLead,getImportExcelView,importExcel} = require('./controllers/portal/leadController');
 // Setup server port
 const port = process.env.PORT || 5000;
 
@@ -99,6 +99,8 @@ app.get("/addLead", isLoggedIn, getAddLeadView);
 app.post("/addLead", isLoggedIn, addLead);
 app.get("/checkLead", isLoggedIn, checkLeadView);
 app.post("/checkLead", isLoggedIn, checkLead);
+app.get("/importExcel", isLoggedIn, getImportExcelView);
+app.post("/importExcel", isLoggedIn, importExcel);
 
 function isLoggedIn(req,res,next) {
   if(req.isAuthenticated()){
