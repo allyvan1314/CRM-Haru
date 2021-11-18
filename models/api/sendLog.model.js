@@ -29,6 +29,7 @@ const sendLogSchema = new mongoose.Schema(
         ERROR_CODE: String,
         ERROR_MSG: String,
         REQ_ID:String,
+        CHANNEL:String,
     },
 );
 

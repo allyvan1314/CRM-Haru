@@ -4,7 +4,11 @@ const {
 } = require('../../models/portal/lead.js')
 const sendLog = require('../../models/api/sendLog.model')
 const sendLogRepository = require("../../repository/sendLog.repository.js")
-const axios= require('axios')
+const sendLog = require("../../models/api/sendLog.model.js");
+const sendLogRepository = require("../../repository/sendLog.repository.js");
+const axios = require('axios')
+
+
 const getAllLeads = async (req, res, next) => {
     const list = await Lead.find().exec();
     res.render('leadlist', {
@@ -26,7 +30,7 @@ const addLead = async (req, res, next) => {
     if (error) return res.status(422).send(error.details[0].message);
     const data = req.body;
     let phone = data.cus_phone;
-    let lead = await new Lead({
+    var lead = await new Lead({
         loan_amount: data.loan_amount,
         loan_duration: data.loan_duration,
         cus_name: data.cus_name,
@@ -45,7 +49,7 @@ const addLead = async (req, res, next) => {
     lead = await lead.save();
     let sendLog = await sendLogRepository.getLogByPhone(phone)
     if (sendLog.length == 0) {
-        console.log(phong+" - not send");
+        console.log(phong + " - not send");
         res.redirect('/allLeads');
     } else {
         const start_time = sendLog[0].SEND_DATE,
@@ -56,6 +60,9 @@ const addLead = async (req, res, next) => {
         const days = hours / 24;
 
         if (days > 30) {
+            let ERROR_CODE = "",
+                ERROR_MSG= "",
+                REQ_ID = "",
             const dataSend = {
                 cmd: process.env.CMD_VMG,
                 campaignId: process.env.CAMPAIGN_VMG_DIGITAL,
@@ -82,6 +89,23 @@ const addLead = async (req, res, next) => {
                 }).catch((err) => {
                     console.error(err);
                 });
+            let sendLogInfo = new sendLog({
+                PHONE_NUMBER = data.cus_phone,
+                FULL_NAME = data.cus_name,
+                ID_CARD = data.cus_id,
+                ADDRESS = data.cus_cur_address,
+                GENDER = data.cus_gender,
+                BIRTHDAY = data.cus_dob,
+                PROVINCE = data.cus_cur_city,
+                DISTRICT = data.cus_cur_district,
+                INCOME = data.cus_income,
+                SEND_DATE = Date.now(),
+                CHANNEL = "DIGITAL",
+                ERROR_CODE = ERROR_CODE,
+                ERROR_MSG= ERROR_MSG,
+                REQ_ID = REQ_ID,
+            });
+            await sendLogRepository.addSendLog(sendLogInfo)
             res.redirect('/allLeads');
         } else {
             res.redirect('/allLeads');
