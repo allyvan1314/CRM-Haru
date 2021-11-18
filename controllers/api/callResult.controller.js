@@ -39,6 +39,7 @@ module.exports.create = async (req, res) => {
         let ERROR_CODE = "";
         let ERROR_MSG = "";
         let REQ_ID = "";
+        let CHANNEL = "VMS"
 
 
         const dataSend = {
@@ -68,7 +69,7 @@ module.exports.create = async (req, res) => {
             }).catch((err) => {
                 console.error(err);
             });
-        let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, KEY_PRESS, FULL_NAME, ID_CARD, ADDRESS, GENDER, BIRTHDAY, PROVINCE, DISTRICT, INCOME, JOB, FLAG, SEND_DATE, IS_SEND, ERROR_CODE,ERROR_MSG,REQ_ID });
+        let sendLogInfo = new sendLog({ PHONE_NUMBER, CUSTOMER_ID, KEY_PRESS, FULL_NAME, ID_CARD, ADDRESS, GENDER, BIRTHDAY, PROVINCE, DISTRICT, INCOME, JOB, FLAG, SEND_DATE, IS_SEND, ERROR_CODE,ERROR_MSG,REQ_ID, CHANNEL });
         await sendLogRepository.addSendLog(sendLogInfo)
     }
     else {
