@@ -27,7 +27,21 @@ const addLead = async (req, res, next) => {
     } = validate(req.body);
     if (error) return res.status(422).send(error.details[0].message);
     const data = req.body;
-    let phone = data.cus_phone;
+    let PHONE_NUMBER = data.cus_phone;
+    let FULL_NAME = data.cus_name;
+    let ID_CARD = data.cus_id;
+    let ADDRESS = data.cus_cur_address;
+    let GENDER = data.cus_gender;
+    let BIRTHDAY = data.cus_dob;
+    let PROVINCE = data.cus_cur_cit;
+    let DISTRICT = data.cus_cur_district;
+    let INCOME = data.cus_income;
+    let SEND_DATE = Date.now();
+    let ERROR_CODE = "";
+    let ERROR_MSG = "";
+    let REQ_ID = "";
+    let CHANNEL = "VMS"
+
     var lead = await new Lead({
         loan_amount: data.loan_amount,
         loan_duration: data.loan_duration,
@@ -58,9 +72,6 @@ const addLead = async (req, res, next) => {
         const days = hours / 24;
 
         if (days > 30) {
-            let ERROR_CODE = "",
-                ERROR_MSG = "",
-                REQ_ID = "";
             let dataSend = {
                 cmd: process.env.CMD_VMG,
                 campaignId: process.env.CAMPAIGN_VMG_DIGITAL,
@@ -88,20 +99,20 @@ const addLead = async (req, res, next) => {
                     console.error(err);
                 });
             let sendLogInfo = new sendLog({
-                PHONE_NUMBER: data.cus_phone,
-                FULL_NAME: data.cus_name,
-                ID_CARD: data.cus_id,
-                ADDRESS: data.cus_cur_address,
-                GENDER: data.cus_gender,
-                BIRTHDAY: data.cus_dob,
-                PROVINCE: data.cus_cur_city,
-                DISTRICT: data.cus_cur_district,
-                INCOME: data.cus_income,
-                SEND_DATE: Date.now(),
-                CHANNEL: "DIGITAL",
-                ERROR_CODE: ERROR_CODE,
-                ERROR_MSG: ERROR_MSG,
-                REQ_ID: REQ_ID,
+                PHONE_NUMBER,
+                FULL_NAME,
+                ID_CARD,
+                ADDRESS,
+                GENDER,
+                BIRTHDAY,
+                PROVINCE,
+                DISTRICT,
+                INCOME,
+                SEND_DATE,
+                ERROR_CODE,
+                ERROR_MSG,
+                REQ_ID,
+                CHANNEL
             });
             await sendLogRepository.addSendLog(sendLogInfo)
             res.redirect('/allLeads');
