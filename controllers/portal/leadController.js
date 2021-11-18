@@ -59,12 +59,12 @@ const addLead = async (req, res, next) => {
         cus_email: data.cus_email,
     });
     lead = await lead.save();
-    let sendLog = await sendLogRepository.getLogByPhone(PHONE_NUMBER)
-    if (sendLog.length == 0) {
+    let sendLogCheck = await sendLogRepository.getLogByPhone(PHONE_NUMBER)
+    if (sendLogCheck.length == 0) {
         console.log(phong + " - not send");
         res.redirect('/allLeads');
     } else {
-        const start_time = sendLog[0].SEND_DATE,
+        const start_time = sendLogCheck[0].SEND_DATE,
             end_time = Date.now()
 
         const total = new Date(end_time).getTime() - new Date(start_time).getTime();
