@@ -4,6 +4,7 @@ const {
 } = require('../../models/portal/lead.js')
 const sendLog = require('../../models/api/sendLog.model')
 const sendLogRepository = require("../../repository/sendLog.repository.js")
+const axios= require('axios')
 const getAllLeads = async (req, res, next) => {
     const list = await Lead.find().exec();
     res.render('leadlist', {
