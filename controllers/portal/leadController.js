@@ -1,25 +1,30 @@
-const {Lead, validate} = require('../../models/portal/lead.js')
-const sendLog=  require('../../models/api/sendLog.model')
+const {
+    Lead,
+    validate
+} = require('../../models/portal/lead.js')
+const sendLog = require('../../models/api/sendLog.model')
 const sendLogRepository = require("../../repository/sendLog.repository.js")
-const getAllLeads = async (req,res,next) =>{
+const getAllLeads = async (req, res, next) => {
     const list = await Lead.find().exec();
-    res.render('leadlist',{
+    res.render('leadlist', {
         leads: list,
-        username: req.user.username ,
+        username: req.user.username,
     });
 }
 
 const getAddLeadView = (req, res, next) => {
-    res.render('addLead',{
-        username: req.user.username ,
+    res.render('addLead', {
+        username: req.user.username,
     });
 }
 
 const addLead = async (req, res, next) => {
-    const {error} = validate(req.body);
-    if(error) return res.status(422).send(error.details[0].message);
+    const {
+        error
+    } = validate(req.body);
+    if (error) return res.status(422).send(error.details[0].message);
     const data = req.body;
-    let phone =  data.cus_phone;
+    let phone = data.cus_phone;
     let lead = await new Lead({
         loan_amount: data.loan_amount,
         loan_duration: data.loan_duration,
@@ -37,9 +42,50 @@ const addLead = async (req, res, next) => {
         cus_email: data.cus_email,
     });
     lead = await lead.save();
-    let sendLog = sendLogRepository.getLogByPhone(phone)
+    let sendLog = await sendLogRepository.getLogByPhone(phone)
+    if (sendLog.length == 0) {
+        console.log(phong+" - not send");
+        res.redirect('/allLeads');
+    } else {
+        const start_time = sendLog[0].SEND_DATE,
+            end_time = Date.now()
 
-    res.redirect('/allLeads');
+        const total = new Date(end_time).getTime() - new Date(start_time).getTime();
+        const hours = (Math.floor((total) / 1000)) / 3600;
+        const days = hours / 24;
+
+        if (days > 30) {
+            const dataSend = {
+                cmd: process.env.CMD_VMG,
+                campaignId: process.env.CAMPAIGN_VMG_DIGITAL,
+                token: process.env.TOKEN_VMG,
+                fullname: data.cus_name,
+                nationalId: data.cus_id,
+                address: data.cus_cur_address,
+                phoneNumber: data.cus_phone,
+                gender: (data.cus_gender == "Nam" ? 1 : 2),
+                yearOfBirth: data.cus_dob,
+                province: data.cus_cur_city,
+                district: data.cus_cur_district,
+                income: data.cus_income,
+                loanAmount: data.cus_loan_amount
+            }
+            await axios.post(process.env.URL_VMG, dataSend)
+                .then((res) => {
+                    console.log(`Status: ${res.status}`);
+                    console.log('Body: ', res.data);
+                    ERROR_CODE = res.data.errorCode;
+                    ERROR_MSG = res.data.errorMessage;
+                    REQ_ID = res.data.requestId;
+                    //console.log(ERROR_CODE);
+                }).catch((err) => {
+                    console.error(err);
+                });
+            res.redirect('/allLeads');
+        } else {
+            res.redirect('/allLeads');
+        }
+    }
 }
 
 

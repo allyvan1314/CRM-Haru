@@ -9,7 +9,7 @@ async function addSendLog(sendLog) {
 }
 
 async function getLogByPhone(phone) {
-    return await sendLog.find({ PHONE_NUMBER: phone });
+    return await sendLog.find({ PHONE_NUMBER: phone }).sort({_id:-1});
 }
 
 module.exports = {

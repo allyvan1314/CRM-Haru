@@ -37,7 +37,7 @@ module.exports.create = async (req, res) => {
 
         const dataSend = {
             cmd: process.env.CMD_VMG,
-            campaignId: process.env.CAMPAIGN_VMG,
+            campaignId: process.env.CAMPAIGN_VMG_VMS,
             token: process.env.TOKEN_VMG,
             fullname: FULL_NAME,
             nationalId: ID_CARD,
