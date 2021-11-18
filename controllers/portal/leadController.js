@@ -66,6 +66,49 @@ const addLead = async (req, res, next) => {
     lead = await lead.save();
     let sendLogCheck = await sendLogRepository.getLogByPhone(PHONE_NUMBER)
     if (sendLogCheck.length == 0) {
+        let dataSend = {
+            cmd: process.env.CMD_VMG,
+            campaignId: process.env.CAMPAIGN_VMG_DIGITAL,
+            token: process.env.TOKEN_VMG,
+            fullname: data.cus_name,
+            nationalId: data.cus_id,
+            address: data.cus_cur_address,
+            phoneNumber: data.cus_phone,
+            gender: (data.cus_gender == "Nam" ? 1 : 2),
+            yearOfBirth: data.cus_dob,
+            province: data.cus_cur_city,
+            district: data.cus_cur_district,
+            income: data.cus_income,
+            loanAmount: data.cus_loan_amount
+        }
+        await axios.post(process.env.URL_VMG, dataSend)
+            .then((res) => {
+                console.log(`Status: ${res.status}`);
+                console.log('Body: ', res.data);
+                ERROR_CODE = res.data.errorCode;
+                ERROR_MSG = res.data.errorMessage;
+                REQ_ID = res.data.requestId;
+                console.log(user);
+            }).catch((err) => {
+                console.error(err);
+            });
+        let sendLogInfo = new sendLog({
+            PHONE_NUMBER,
+            FULL_NAME,
+            ID_CARD,
+            ADDRESS,
+            GENDER,
+            BIRTHDAY,
+            PROVINCE,
+            DISTRICT,
+            INCOME,
+            SEND_DATE,
+            ERROR_CODE,
+            ERROR_MSG,
+            REQ_ID,
+            CHANNEL
+        });
+        await sendLogRepository.addSendLog(sendLogInfo)
         res.redirect('/allLeads');
     } else {
         const start_time = sendLogCheck[0].SEND_DATE,
