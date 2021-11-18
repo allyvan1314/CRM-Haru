@@ -2,8 +2,6 @@ const {
     Lead,
     validate
 } = require('../../models/portal/lead.js')
-const sendLog = require('../../models/api/sendLog.model')
-const sendLogRepository = require("../../repository/sendLog.repository.js")
 const sendLog = require("../../models/api/sendLog.model.js");
 const sendLogRepository = require("../../repository/sendLog.repository.js");
 const axios = require('axios')
@@ -61,9 +59,9 @@ const addLead = async (req, res, next) => {
 
         if (days > 30) {
             let ERROR_CODE = "",
-                ERROR_MSG= "",
-                REQ_ID = "",
-            const dataSend = {
+                ERROR_MSG = "",
+                REQ_ID = "";
+            let dataSend = {
                 cmd: process.env.CMD_VMG,
                 campaignId: process.env.CAMPAIGN_VMG_DIGITAL,
                 token: process.env.TOKEN_VMG,
@@ -90,20 +88,20 @@ const addLead = async (req, res, next) => {
                     console.error(err);
                 });
             let sendLogInfo = new sendLog({
-                PHONE_NUMBER = data.cus_phone,
-                FULL_NAME = data.cus_name,
-                ID_CARD = data.cus_id,
-                ADDRESS = data.cus_cur_address,
-                GENDER = data.cus_gender,
-                BIRTHDAY = data.cus_dob,
-                PROVINCE = data.cus_cur_city,
-                DISTRICT = data.cus_cur_district,
-                INCOME = data.cus_income,
-                SEND_DATE = Date.now(),
-                CHANNEL = "DIGITAL",
-                ERROR_CODE = ERROR_CODE,
-                ERROR_MSG= ERROR_MSG,
-                REQ_ID = REQ_ID,
+                PHONE_NUMBER: data.cus_phone,
+                FULL_NAME: data.cus_name,
+                ID_CARD: data.cus_id,
+                ADDRESS: data.cus_cur_address,
+                GENDER: data.cus_gender,
+                BIRTHDAY: data.cus_dob,
+                PROVINCE: data.cus_cur_city,
+                DISTRICT: data.cus_cur_district,
+                INCOME: data.cus_income,
+                SEND_DATE: Date.now(),
+                CHANNEL: "DIGITAL",
+                ERROR_CODE: ERROR_CODE,
+                ERROR_MSG: ERROR_MSG,
+                REQ_ID: REQ_ID,
             });
             await sendLogRepository.addSendLog(sendLogInfo)
             res.redirect('/allLeads');
