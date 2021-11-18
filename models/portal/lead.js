@@ -66,7 +66,7 @@ const Lead = mongoose.model('Lead', leadSchema);
 const validateLead = (lead) => {
     const schema = Joi.object({
         loan_amount: Joi.string()
-            .regex(/^(1000000[0-9]|100000[1-9][0-9]|10000[1-9][0-9]{2}|1000[1-9][0-9]{3}|100[1-9][0-9]{4}|10[1-9][0-9]{5}|1[1-9][0-9]{6}|[2-4][0-9]{7}|50000000)$/)
+            .regex(/^(10,000,00[0-9]|10,000,0[1-9][0-9]|10,000,[1-9][0-9]{2}|10,00[1-9],[0-9]{3}|10,0[1-9][0-9],[0-9]{3}|10,[1-9][0-9]{2},[0-9]{3}|1[1-9],[0-9]{3},[0-9]{3}|[2-4][0-9],[0-9]{3},[0-9]{3}|50000000)$/)
             .required(),
         loan_duration: Joi.string()
             .regex(/^([6-9]|[12][0-9]|3[0-6])$/)
@@ -84,11 +84,15 @@ const validateLead = (lead) => {
         cus_cur_district: Joi.string().required(),
         cus_cur_ward: Joi.string().required(),
         cus_cur_address: Joi.string().required(),
-        cus_income: Joi.string().required(),
+        cus_income: Joi.string()
+            .regex(/^(3,000,00[0-9]|3,000,0[1-9][0-9]|3,000,[1-9][0-9]{2}|3,00[1-9],[0-9]{3}|3,0[1-9][0-9],[0-9]{3}|3,[1-9][0-9]{2},[0-9]{5}|[4-9],[0-9]{3},[0-9]{3}|[1-9][0-9],[0-9]{3},[0-9]{3}|100000000)$/)
+            .required(),
         cus_income_type: Joi.string().required(),
     })
 
-    return Joi.validate(lead, schema,{allowUnknown:true});
+    return Joi.validate(lead, schema, {
+        allowUnknown: true
+    });
 }
 
 

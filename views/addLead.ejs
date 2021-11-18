@@ -25,30 +25,30 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-form-label" for="loan_amount">Số tiền vay*</label>
-                                <input type="text" class="form-control"
-                                    pattern="^(1000000[0-9]|100000[1-9][0-9]|10000[1-9][0-9]{2}|1000[1-9][0-9]{3}|100[1-9][0-9]{4}|10[1-9][0-9]{5}|1[1-9][0-9]{6}|[2-4][0-9]{7}|50000000)$"
-                                    name="loan_amount" placeholder="" id="loan_amount" required>
+                                <label class="col-form-label" for="loan_amount">Số tiền vay (vnđ)*</label>
+                                <input type="text" class="form-control" class="numbers"
+                                    pattern="^(10,000,00[0-9]|10,000,0[1-9][0-9]|10,000,[1-9][0-9]{2}|10,00[1-9],[0-9]{3}|10,0[1-9][0-9],[0-9]{3}|10,[1-9][0-9]{2},[0-9]{3}|1[1-9],[0-9]{3},[0-9]{3}|[2-4][0-9],[0-9]{3},[0-9]{3}|50000000)$"
+                                    name="loan_amount" placeholder="10,000,000 - 50,000,000" id="loan_amount" onkeyup="addCommasLoanAmount();" required>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="col-form-label" for="loan_duration">Kỳ hạn vay (tháng)*</label>
                                 <input type="text" class="form-control" pattern="^([6-9]|[12][0-9]|3[0-6])$"
-                                    name="loan_duration" placeholder="" id="loan_duration" required>
+                                    name="loan_duration" placeholder="6 - 36 tháng" id="loan_duration" required>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-form-label" for="cus_name">Tên KH*</label>
-                                <input type="text" class="form-control" name="cus_name" placeholder="" id="cus_name"
+                                <label class="col-form-label" for="cus_name">Tên khách hàng*</label>
+                                <input type="text" class="form-control" name="cus_name" placeholder="vd. Nguyễn Văn A" id="cus_name" pattern="^[a-zA-Z_]+$"
                                     required>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-form-label" for="cus_id">CMND/CCCD*</label>
-                                <input type="text" class="form-control" name="cus_id" placeholder="" id="cus_id"
+                                <label class="col-form-label" for="cus_id">Số CMND/CCCD*</label>
+                                <input type="text" class="form-control" name="cus_id" placeholder="CMND: 9 chữ số, CCCD: 12 chữ sô" id="cus_id"
                                     pattern="^([0-9]{9})$|^([0-9]{12})$" required>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_phone">Số điện thoại*</label>
                                 <input type="text" class="form-control" pattern="^0(3|5|7|8|9)[0-9]{8}$"
-                                    name="cus_phone" placeholder="" id="cus_phone" required>
+                                    name="cus_phone" placeholder="vd. 0933xxxxxx" id="cus_phone" required>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -96,7 +96,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Tỉnh/Thành phố*</label>
                                 <select class="form-control" id="calc_shipping_city" required>
-                                    <option value="">Tỉnh / Thành phố</option>
+                                    <option value=""selected disabled hidden>Tỉnh / Thành phố</option>
                                 </select>
                                 <input required type="hidden" class="address_1" name="cus_cur_city" id="cus_cur_city">
                             </div>
@@ -105,7 +105,7 @@
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_cur_district">Quận/Huyện*</label>
                                 <select class="form-control" id="calc_shipping_district" required>
-                                    <option value="">Quận / Huyện</option>
+                                    <option value=""selected disabled hidden>Quận / Huyện</option>
                                 </select>
                                 <input class="address_2" name="cus_cur_district" type="hidden" required>
                             </div>
@@ -113,21 +113,21 @@
                         <div class="col-sm-5">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_cur_ward">Xã/Phường* </label>
-                                <input type="text" class="form-control" name="cus_cur_ward" id="cus_cur_ward"required>
+                                <input type="text" class="form-control" name="cus_cur_ward" id="cus_cur_ward" required>
                             </div>
                         </div>
                         <div class="col-sm-7">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_cur_address">Địa chỉ* </label>
-                                <input type="text" class="form-control" name="cus_cur_address" placeholder=""
-                                    id="cus_cur_address"required>
+                                <input type="text" class="form-control" name="cus_cur_address" placeholder="số nhà, tên đường, khu/ phố"
+                                    id="cus_cur_address" required>
                             </div>
                         </div>
                         <div class="col-sm-5">
                             <div class="form-group">
-                                <label class="col-form-label" for="cus_income">Thu nhập hàng tháng*</label>
-                                <input type="text" class="form-control" name="cus_income" placeholder=""
-                                    id="cus_income" required>
+                                <label class="col-form-label" for="cus_income">Thu nhập hàng tháng (vnđ)*</label>
+                                <input type="text" class="form-control" name="cus_income" placeholder="3,000,000 - 100,000,000" id="cus_income" onkeyup="addCommasIncome();"
+                                    pattern="^(3,000,00[0-9]|3,000,0[1-9][0-9]|3,000,[1-9][0-9]{2}|3,00[1-9],[0-9]{3}|3,0[1-9][0-9],[0-9]{3}|3,[1-9][0-9]{2},[0-9]{5}|[4-9],[0-9]{3},[0-9]{3}|[1-9][0-9],[0-9]{3},[0-9]{3}|100000000)$"required>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -135,7 +135,7 @@
                                 <label class="col-form-label" for="cus_income_type">Loại hình thu nhập*</label>
                                 <select class="form-control" id="cus_income_type" name="cus_income_type"
                                     for="cus_income_type" id="cus_income_type" required>
-                                    <option value="">Loại hình thu nhập</option>
+                                    <option value=""selected disabled hidden>Loại hình thu nhập</option>
                                     <option>Tự kinh doanh</option>
                                     <option>Việc làm ổn định</option>
                                     <option>Việc làm không thường xuyên</option>
@@ -147,7 +147,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_email">Email</label>
-                                <input type="text" class="form-control" name="cus_email" placeholder="" id="cus_email">
+                                <input type="text" class="form-control" name="cus_email"  id="cus_email">
                             </div>
                         </div>
                     </div>
@@ -238,6 +238,28 @@
         })
     //]]>
     </script>
+     <script type="text/javascript" src="jquery.js"></script>
+     <script type="text/javascript" src="jquery.numberformatter.js"></script>
+     <script>
+     function addCommas(str){
+        return str.replace(/^0+/, '').replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function addCommasLoanAmount(str){
+        var val_loan_amount = document.getElementById('loan_amount').value;
+        document.getElementById('loan_amount').value = addCommas(val_loan_amount);
+    }
+
+    function addCommasIncome(str){
+        var val_income = document.getElementById('cus_income').value;
+        document.getElementById('cus_income').value = addCommas(val_income);
+    }
+
+    function validateAge(str){
+        // var val_income = document.getElementById('cus_dob').value;
+        // document.getElementById('cus_income').value = addCommas(val_income);
+    }
+     </script>
 </body>
 
 </html>
