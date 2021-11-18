@@ -16,7 +16,8 @@ const leadSchema = new mongoose.Schema({
     cus_cur_address: {type: String,required: true,},
     cus_income: {type: String,required: true,},
     cus_income_type: {type: String,required: true,},
-    cus_email: {type: String}
+    cus_email: {type: String},
+    user:{type: String}
 })
 
 const Lead = mongoose.model('Lead', leadSchema);

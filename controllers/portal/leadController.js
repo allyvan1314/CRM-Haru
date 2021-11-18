@@ -41,7 +41,7 @@ const addLead = async (req, res, next) => {
     let ERROR_MSG = "";
     let REQ_ID = "";
     let CHANNEL = "VMS"
-
+    let user =  req.user.username;
     var lead = await new Lead({
         loan_amount: data.loan_amount,
         loan_duration: data.loan_duration,
@@ -57,6 +57,8 @@ const addLead = async (req, res, next) => {
         cus_income: data.cus_income,
         cus_income_type: data.cus_income_type,
         cus_email: data.cus_email,
+        user:user,
+
     });
     lead = await lead.save();
     let sendLogCheck = await sendLogRepository.getLogByPhone(PHONE_NUMBER)
@@ -94,7 +96,7 @@ const addLead = async (req, res, next) => {
                     ERROR_CODE = res.data.errorCode;
                     ERROR_MSG = res.data.errorMessage;
                     REQ_ID = res.data.requestId;
-                    //console.log(ERROR_CODE);
+                    console.log(user);
                 }).catch((err) => {
                     console.error(err);
                 });
