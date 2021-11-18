@@ -8,6 +8,11 @@ async function addLeadStatus(leadStatus){
     }
 }
 
+async function getLeadStatusByRequestID(requesid) {
+    return await leadStatus.find({ requestid: requesid }).sort({_id:-1});
+}
+
 module.exports={
     addLeadStatus,
+    getLeadStatusByRequestID
 }

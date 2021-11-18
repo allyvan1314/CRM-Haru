@@ -4,7 +4,10 @@ const {
 } = require('../../models/portal/lead.js')
 const sendLog = require("../../models/api/sendLog.model.js");
 const sendLogRepository = require("../../repository/sendLog.repository.js");
-const axios = require('axios')
+const leadStatus = require("../../models/api/leadStatus.model")
+const leadStatusRepository = require("../../repository/leadStatus.repository.js");
+const axios = require('axios');
+const swal = require('sweetalert');
 
 
 const getAllLeads = async (req, res, next) => {
@@ -40,8 +43,8 @@ const addLead = async (req, res, next) => {
     let ERROR_CODE = "";
     let ERROR_MSG = "";
     let REQ_ID = "";
-    let CHANNEL = "VMS"
-    let user =  req.user.username;
+    let CHANNEL = "DIGITAL"
+    let user = req.user.username;
     var lead = await new Lead({
         loan_amount: data.loan_amount,
         loan_duration: data.loan_duration,
@@ -57,7 +60,7 @@ const addLead = async (req, res, next) => {
         cus_income: data.cus_income,
         cus_income_type: data.cus_income_type,
         cus_email: data.cus_email,
-        user:user,
+        user: user,
 
     });
     lead = await lead.save();
@@ -124,9 +127,57 @@ const addLead = async (req, res, next) => {
     }
 }
 
+const checkLeadView = async (req, res, next) => {
+    res.render('checkLead', {
+        found: "",
+        phone: "",
+        channel: "",
+        send_date: "",
+        vmg_status: "",
+        final_status: ""
+    });
+}
+
+const checkLead = async (req, res, next) => {
+    const phone = req.body.cus_phone;
+    let sendLogInfo = await sendLogRepository.getLogByPhone(phone);
+    // let data = ""
+    if (sendLogInfo.length == 0) {
+        res.render('checkLead', {
+            found: "Không tìm thấy khách hàng",
+            phone: "",
+            channel: "",
+            send_date: "",
+            vmg_status: "",
+            final_status: ""
+        });
+    } else {
+        let leadStatus = await leadStatusRepository.getLeadStatusByRequestID(sendLogInfo[0].REQ_ID)
+        let final_status = ""
+        if (leadStatus.length == 0) {
+            final_status = "đã gửi VMG"
+        } else {
+            if (leadStatus[0].status == "4") {
+                final_status = " Gửi Fico thành công"
+            } else {
+                final_status = "Fico từ chối"
+            }
+        }
+        res.render('checkLead', {
+            found: "",
+            phone: sendLogInfo[0].PHONE_NUMBER,
+            channel: sendLogInfo[0].CHANNEL == "DIGITAL" ? "DIGITAL" : "VMS",
+            send_date: sendLogInfo[0].SEND_DATE,
+            vmg_status: sendLogInfo[0].ERROR_MSG,
+            final_status: final_status
+        });
+    }
+}
 
 module.exports = {
     getAllLeads,
     getAddLeadView,
-    addLead
+    addLead,
+    checkLeadView,
+    checkLead
 }
