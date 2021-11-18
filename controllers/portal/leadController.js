@@ -66,7 +66,6 @@ const addLead = async (req, res, next) => {
     lead = await lead.save();
     let sendLogCheck = await sendLogRepository.getLogByPhone(PHONE_NUMBER)
     if (sendLogCheck.length == 0) {
-        console.log(phong + " - not send");
         res.redirect('/allLeads');
     } else {
         const start_time = sendLogCheck[0].SEND_DATE,
