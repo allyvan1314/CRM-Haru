@@ -59,7 +59,7 @@ const addLead = async (req, res, next) => {
         cus_cur_address: data.cus_cur_address,
         cus_income: data.cus_income,
         cus_income_type: data.cus_income_type,
-        cus_email: data.cus_email,
+        cus_email: data.cus_email == null?"":data.cus_email,
         user: user,
 
     });
@@ -132,7 +132,7 @@ const addLead = async (req, res, next) => {
                 province: data.cus_cur_city,
                 district: data.cus_cur_district,
                 income: data.cus_income,
-                loanAmount: data.cus_loan_amount
+                loanAmount: data.cus_loan_amount,
             }
             await axios.post(process.env.URL_VMG, dataSend)
                 .then((res) => {
