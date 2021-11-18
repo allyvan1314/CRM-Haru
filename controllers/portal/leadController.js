@@ -31,7 +31,7 @@ const addLead = async (req, res, next) => {
     let FULL_NAME = data.cus_name;
     let ID_CARD = data.cus_id;
     let ADDRESS = data.cus_cur_address;
-    let GENDER = data.cus_gender;
+    let GENDER = data.cus_gender == "Nam" ? 1 : 2;
     let BIRTHDAY = data.cus_dob;
     let PROVINCE = data.cus_cur_cit;
     let DISTRICT = data.cus_cur_district;
