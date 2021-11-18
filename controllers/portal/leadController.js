@@ -59,7 +59,7 @@ const addLead = async (req, res, next) => {
         cus_email: data.cus_email,
     });
     lead = await lead.save();
-    let sendLog = await sendLogRepository.getLogByPhone(phone)
+    let sendLog = await sendLogRepository.getLogByPhone(PHONE_NUMBER)
     if (sendLog.length == 0) {
         console.log(phong + " - not send");
         res.redirect('/allLeads');
