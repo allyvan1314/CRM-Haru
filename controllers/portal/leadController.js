@@ -223,9 +223,13 @@ const getImportExcelView = (req, res, next) => {
 }
 
 const importExcel = (req, res, next) => {
-    res.render('importExcel', {
-        username: req.user.username,
-    });
+    // if (! req.file || ! req.file.path) {
+    //     return res.sendStatus(400);
+    //   }
+    var paths = req.files.map(file => file.path)
+
+    console.log(req.file);
+    console.log(paths);
 }
 
 
