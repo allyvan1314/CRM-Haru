@@ -23,50 +23,61 @@
             <div class="card-body">
                 <form action="/addLead" id="add_lead_form" method="post">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="loan_amount">Số tiền vay (vnđ)*</label>
-                                <input type="text" class="form-control" class="numbers"
-                                    pattern="^(10,000,00[0-9]|10,000,0[1-9][0-9]|10,000,[1-9][0-9]{2}|10,00[1-9],[0-9]{3}|10,0[1-9][0-9],[0-9]{3}|10,[1-9][0-9]{2},[0-9]{3}|1[1-9],[0-9]{3},[0-9]{3}|[2-4][0-9],[0-9]{3},[0-9]{3}|50000000)$"
-                                    name="loan_amount" placeholder="10,000,000 - 50,000,000" id="loan_amount" onkeyup="addCommasLoanAmount();" required>
+                                <input type="text" class="form-control is-valid" class="numbers"
+                                    pattern="^(10,000,00[0-9]|10,000,0[1-9][0-9]|10,000,[1-9][0-9]{2}|10,00[1-9],[0-9]{3}|10,0[1-9][0-9],[0-9]{3}|10,[1-9][0-9]{2},[0-9]{3}|1[1-9],[0-9]{3},[0-9]{3}|[2-4][0-9],[0-9]{3},[0-9]{3}|50,000,000)$"
+                                    name="loan_amount" placeholder="10,000,000 - 50,000,000" id="loan_amount"
+                                    onkeyup="addCommasLoanAmount();" required>
+                                <small style="color:red;" class="form-text text-muted" id="error_loan_amount"></small>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="loan_duration">Kỳ hạn vay (tháng)*</label>
                                 <input type="text" class="form-control" pattern="^([6-9]|[12][0-9]|3[0-6])$"
-                                    name="loan_duration" placeholder="6 - 36 tháng" id="loan_duration" required>
+                                    name="loan_duration" placeholder="6 - 36 tháng" id="loan_duration"
+                                    onkeyup="validate_loan_duration()" required>
+                                <small style="color:red;" class="form-text text-muted" id="error_loan_duration"></small>
+
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_name">Tên khách hàng*</label>
-                                <input type="text" class="form-control" name="cus_name" placeholder="vd. Nguyễn Văn A" id="cus_name" pattern="^[a-zA-Z_]+$"
-                                    required>
+                                <input type="text" class="form-control" name="cus_name" placeholder="vd. Nguyễn Văn A"
+                                    id="cus_name" onkeyup="validate_cus_name()" required>
+                                <small style="color:red;" class="form-text text-muted" id="error_cus_name"></small>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_id">Số CMND/CCCD*</label>
-                                <input type="text" class="form-control" name="cus_id" placeholder="CMND: 9 chữ số, CCCD: 12 chữ sô" id="cus_id"
-                                    pattern="^([0-9]{9})$|^([0-9]{12})$" required>
+                                <input type="text" class="form-control" name="cus_id"
+                                    placeholder="CMND: 9 chữ số, CCCD: 12 chữ số" id="cus_id"
+                                    pattern="^([0-9]{9})$|^([0-9]{12})$" onkeyup="validate_cus_id()" required>
+                                <small style="color:red;" class="form-text text-muted" id="error_cus_id"></small>
                             </div>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-5" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_phone">Số điện thoại*</label>
                                 <input type="text" class="form-control" pattern="^0(3|5|7|8|9)[0-9]{8}$"
-                                    name="cus_phone" placeholder="vd. 0933xxxxxx" id="cus_phone" required>
+                                    name="cus_phone" placeholder="vd. 0933xxxxxx" id="cus_phone"
+                                    onkeyup="validate_cus_phone()" required>
+                                <small style="color:red;" class="form-text text-muted" id="error_cus_phone"></small>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_dob">Ngày sinh*</label>
                                 <input type="date" class="form-control" pattern="|[a-zA-Z0-9]" name="cus_dob"
-                                    id="cus_dob" required>
+                                    id="cus_dob" onkeyup="validate_cus_dob()" required>
+                                <small style="color:red;" class="form-text text-muted" id="error_cus_dob"></small>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_gender">Giới tính*</label>
                                 <select class="form-control" id="cus_gender" for="cus_gender" name="cus_gender"
@@ -92,50 +103,53 @@
                                 </div>
                             </fieldset> -->
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label">Tỉnh/Thành phố*</label>
-                                <select class="form-control" id="calc_shipping_city" required>
-                                    <option value=""selected disabled hidden>Tỉnh / Thành phố</option>
+                                <select class="form-control" id="calc_shipstyle=" height:95px"ping_city" required>
+                                    <option value="" selected disabled hidden>Tỉnh / Thành phố</option>
                                 </select>
                                 <input required type="hidden" class="address_1" name="cus_cur_city" id="cus_cur_city">
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_cur_district">Quận/Huyện*</label>
                                 <select class="form-control" id="calc_shipping_district" required>
-                                    <option value=""selected disabled hidden>Quận / Huyện</option>
+                                    <option value="" selected disabled hidden>Quận / Huyện</option>
                                 </select>
                                 <input class="address_2" name="cus_cur_district" type="hidden" required>
                             </div>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-5" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_cur_ward">Xã/Phường* </label>
                                 <input type="text" class="form-control" name="cus_cur_ward" id="cus_cur_ward" required>
                             </div>
                         </div>
-                        <div class="col-sm-7">
+                        <div class="col-sm-7" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_cur_address">Địa chỉ* </label>
-                                <input type="text" class="form-control" name="cus_cur_address" placeholder="số nhà, tên đường, khu/ phố"
-                                    id="cus_cur_address" required>
+                                <input type="text" class="form-control" name="cus_cur_address"
+                                    placeholder="số nhà, tên đường, khu/ phố" id="cus_cur_address" required>
                             </div>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-5" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_income">Thu nhập hàng tháng (vnđ)*</label>
-                                <input type="text" class="form-control" name="cus_income" placeholder="3,000,000 - 100,000,000" id="cus_income" onkeyup="addCommasIncome();"
-                                    pattern="^(3,000,00[0-9]|3,000,0[1-9][0-9]|3,000,[1-9][0-9]{2}|3,00[1-9],[0-9]{3}|3,0[1-9][0-9],[0-9]{3}|3,[1-9][0-9]{2},[0-9]{5}|[4-9],[0-9]{3},[0-9]{3}|[1-9][0-9],[0-9]{3},[0-9]{3}|100000000)$"required>
+                                <input type="text" class="form-control" name="cus_income"
+                                    placeholder="3,000,000 - 100,000,000" id="cus_income" onkeyup="addCommasIncome();"
+                                    pattern="^(3,000,00[0-9]|3,000,0[1-9][0-9]|3,000,[1-9][0-9]{2}|3,00[1-9],[0-9]{3}|3,0[1-9][0-9],[0-9]{3}|3,[1-9][0-9]{2},[0-9]{5}|[4-9],[0-9]{3},[0-9]{3}|[1-9][0-9],[0-9]{3},[0-9]{3}|100,000,000)$"
+                                    required>
+                                <small style="color:red;" class="form-text text-muted" id="error_cus_income"></small>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_income_type">Loại hình thu nhập*</label>
                                 <select class="form-control" id="cus_income_type" name="cus_income_type"
                                     for="cus_income_type" id="cus_income_type" required>
-                                    <option value=""selected disabled hidden>Loại hình thu nhập</option>
+                                    <option value="" selected disabled hidden>Loại hình thu nhập</option>
                                     <option>Tự kinh doanh</option>
                                     <option>Việc làm ổn định</option>
                                     <option>Việc làm không thường xuyên</option>
@@ -144,10 +158,10 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_email">Email</label>
-                                <input type="text" class="form-control" name="cus_email"  id="cus_email">
+                                <input type="text" class="form-control" name="cus_email" id="cus_email">
                             </div>
                         </div>
                     </div>
@@ -238,28 +252,123 @@
         })
     //]]>
     </script>
-     <script type="text/javascript" src="jquery.js"></script>
-     <script type="text/javascript" src="jquery.numberformatter.js"></script>
-     <script>
-     function addCommas(str){
-        return str.replace(/^0+/, '').replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="jquery.numberformatter.js"></script>
+    <script>
+        function addCommas(str) {
+            return str.replace(/^0+/, '').replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
 
-    function addCommasLoanAmount(str){
-        var val_loan_amount = document.getElementById('loan_amount').value;
-        document.getElementById('loan_amount').value = addCommas(val_loan_amount);
-    }
+        function addCommasLoanAmount(str) {
+            var val_loan_amount = document.getElementById('loan_amount').value;
+            document.getElementById('loan_amount').value = addCommas(val_loan_amount);
+            val_loan_amount = document.getElementById('loan_amount').value;
+            let pattern = /^(10,000,00[0-9]|10,000,0[1-9][0-9]|10,000,[1-9][0-9]{2}|10,00[1-9],[0-9]{3}|10,0[1-9][0-9],[0-9]{3}|10,[1-9][0-9]{2},[0-9]{3}|1[1-9],[0-9]{3},[0-9]{3}|[2-4][0-9],[0-9]{3},[0-9]{3}|50,000,000)$/
+            if (!val_loan_amount.match(pattern)) {
+                document.getElementById("error_loan_amount").innerHTML = "⚠ Nhập số tiền từ 10,000,000 đến 50,000,000";
+            }
+            else {
+                document.getElementById("error_loan_amount").innerHTML = "";
+            }
+        }
 
-    function addCommasIncome(str){
-        var val_income = document.getElementById('cus_income').value;
-        document.getElementById('cus_income').value = addCommas(val_income);
-    }
+        function addCommasIncome(str) {
+            var val_cus_income = document.getElementById('cus_income').value;
+            document.getElementById('cus_income').value = addCommas(val_cus_income);
+            val_cus_income = document.getElementById('cus_income').value;
+            let pattern = /^(3,000,00[0-9]|3,000,0[1-9][0-9]|3,000,[1-9][0-9]{2}|3,00[1-9],[0-9]{3}|3,0[1-9][0-9],[0-9]{3}|3,[1-9][0-9]{2},[0-9]{5}|[4-9],[0-9]{3},[0-9]{3}|[1-9][0-9],[0-9]{3},[0-9]{3}|100,000,000)$/
+            if (!val_cus_income.match(pattern)) {
+                document.getElementById("error_cus_income").innerHTML = "⚠ Thu nhập Khách hàng từ 3,000,000 đến 100,000,000";
+            }
+            else {
+                document.getElementById("error_cus_income").innerHTML = "";
+            }
+        }
 
-    function validateAge(str){
-        // var val_income = document.getElementById('cus_dob').value;
-        // document.getElementById('cus_income').value = addCommas(val_income);
-    }
-     </script>
+        function validate_loan_duration() {
+            var val_loan_duration = document.getElementById('loan_duration').value;
+            let pattern = /^([6-9]|[12][0-9]|3[0-6])$/
+            if (!val_loan_duration.match(pattern)) {
+                document.getElementById("error_loan_duration").innerHTML = "⚠ Kỳ hạn vay từ 6 đến 36 tháng";
+            }
+            else {
+                document.getElementById("error_loan_duration").innerHTML = "";
+            }
+        }
+
+        function removeAscent(str) {
+            if (str === null || str === undefined) return str;
+            str = str.toLowerCase();
+            str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+            str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+            str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+            str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+            str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+            str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+            str = str.replace(/đ/g, "d");
+            return str;
+        }
+
+        function validate_cus_name() {
+            var val_cus_name = document.getElementById('cus_name').value;
+            let pattern = /^[a-zA-Z][a-zA-Z ]{2,}$/
+            val_cus_name = removeAscent(val_cus_name)
+            if (!val_cus_name.match(pattern)) {
+                document.getElementById("error_cus_name").innerHTML = "⚠ Tên Khách hàng chỉ được nhập chữ cái";
+            }
+            else {
+                document.getElementById("error_cus_name").innerHTML = "";
+            }
+        }
+
+        function validate_cus_id() {
+            var val_cus_id = document.getElementById('cus_id').value;
+            let pattern = /^([0-9]{9})$|^([0-9]{12})$/
+            if (!val_cus_id.match(pattern)) {
+                document.getElementById("error_cus_id").innerHTML = "⚠ CMND/CCCD gồm 9 hoặc 12 chữ số";
+            }
+            else {
+                document.getElementById("error_cus_id").innerHTML = "";
+            }
+        }
+
+        function validate_cus_phone() {
+            var val_cus_phone = document.getElementById('cus_phone').value;
+            let pattern = /^0(3|5|7|8|9)[0-9]{8}$/
+            if (!val_cus_phone.match(pattern)) {
+                document.getElementById("error_cus_phone").innerHTML = "⚠ Số điện thoại gồm 10 chữ số bắt đầu bằng số 0 và đầu số hợp lệ";
+            }
+            else {
+                document.getElementById("error_cus_phone").innerHTML = "";
+            }
+        }
+
+        function validate_cus_dob() {
+            // var val_cus_dob = document.getElementById('cus_dob').value.toStrings();
+            // //let pattern = /^0(3|5|7|8|9)[0-9]{8}$/
+            // // if (!val_cus_phone.match(pattern)) {
+            // //     document.getElementById("error_cus_phone").innerHTML = 
+            // // }
+            // // else {
+            // //     document.getElementById("error_cus_phone").innerHTML = "";
+            // // }
+            // document.getElementById("error_cus_dob").innerHTML = "aa";
+        }
+
+        function validate_cus_income() {
+            var val_cus_income = document.getElementById('cus_income').value;
+            let pattern = /^(3,000,00[0-9]|3,000,0[1-9][0-9]|3,000,[1-9][0-9]{2}|3,00[1-9],[0-9]{3}|3,0[1-9][0-9],[0-9]{3}|3,[1-9][0-9]{2},[0-9]{5}|[4-9],[0-9]{3},[0-9]{3}|[1-9][0-9],[0-9]{3},[0-9]{3}|100,000,000)$/
+            val_cus_income = document.getElementById('cus_income').value;
+            if (!val_cus_income.match(pattern)) {
+                document.getElementById("error_cus_income").innerHTML = "⚠ Thu nhập Khách hàng từ 3,000,000 đến 100,000,000";
+            }
+            else {
+                document.getElementById("error_cus_income").innerHTML = "";
+            }
+        }
+
+
+    </script>
 </body>
 
 </html>
