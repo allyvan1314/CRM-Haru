@@ -58,6 +58,12 @@ const leadSchema = new mongoose.Schema({
     },
     user: {
         type: String
+    },
+    source:{
+        type: String,
+    },
+    medium:{
+        type:String,
     }
 }, {
     timestamps: true

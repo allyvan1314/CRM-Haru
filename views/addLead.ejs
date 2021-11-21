@@ -12,7 +12,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <img src="https://haru-media.com/wp-content/uploads/2020/09/Haru-Logo.png">
-            <input id="username" name="username" value="<%= username %>" readonly></input>
+            <input id="username" name="username" value="<%= username %>" hidden readonly></input>
         </div>
     </nav>
     <div class="container">
@@ -23,7 +23,15 @@
             <div class="card-body">
                 <form action="/addLead" id="add_lead_form" method="post">
                     <div class="row">
-                        <div class="col-sm-6" style="height:95px">
+                        <div class="col-sm-5" style="height:95px">
+                            <div class="form-group">
+                                <label class="col-form-label" for="cus_name">Tên khách hàng*</label>
+                                <input type="text" class="form-control" name="cus_name" placeholder="vd. Nguyễn Văn A"
+                                    id="cus_name" onkeyup="validate_cus_name()" required>
+                                <small style="color:red;" class="form-text text-muted" id="error_cus_name"></small>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="loan_amount">Số tiền vay (vnđ)*</label>
                                 <input type="text" class="form-control is-valid" class="numbers"
@@ -33,7 +41,7 @@
                                 <small style="color:red;" class="form-text text-muted" id="error_loan_amount"></small>
                             </div>
                         </div>
-                        <div class="col-sm-6" style="height:95px">
+                        <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="loan_duration">Kỳ hạn vay (tháng)*</label>
                                 <input type="text" class="form-control" pattern="^([6-9]|[12][0-9]|3[0-6])$"
@@ -43,15 +51,8 @@
 
                             </div>
                         </div>
-                        <div class="col-sm-6" style="height:95px">
-                            <div class="form-group">
-                                <label class="col-form-label" for="cus_name">Tên khách hàng*</label>
-                                <input type="text" class="form-control" name="cus_name" placeholder="vd. Nguyễn Văn A"
-                                    id="cus_name" onkeyup="validate_cus_name()" required>
-                                <small style="color:red;" class="form-text text-muted" id="error_cus_name"></small>
-                            </div>
-                        </div>
-                        <div class="col-sm-6" style="height:95px">
+                        
+                        <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_id">Số CMND/CCCD*</label>
                                 <input type="text" class="form-control" name="cus_id"
@@ -60,7 +61,7 @@
                                 <small style="color:red;" class="form-text text-muted" id="error_cus_id"></small>
                             </div>
                         </div>
-                        <div class="col-sm-5" style="height:95px">
+                        <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_phone">Số điện thoại*</label>
                                 <input type="text" class="form-control" pattern="^0(3|5|7|8|9)[0-9]{8}$"
@@ -69,7 +70,7 @@
                                 <small style="color:red;" class="form-text text-muted" id="error_cus_phone"></small>
                             </div>
                         </div>
-                        <div class="col-sm-4" style="height:95px">
+                        <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_dob">Ngày sinh*</label>
                                 <input type="date" class="form-control" pattern="|[a-zA-Z0-9]" name="cus_dob"
@@ -103,7 +104,7 @@
                                 </div>
                             </fieldset> -->
                         </div>
-                        <div class="col-sm-6" style="height:95px">
+                        <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label">Tỉnh/Thành phố*</label>
                                 <select class="form-control" id="calc_shipping_city" required>
@@ -112,7 +113,7 @@
                                 <input required type="hidden" class="address_1" name="cus_cur_city" id="cus_cur_city">
                             </div>
                         </div>
-                        <div class="col-sm-6" style="height:95px">
+                        <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_cur_district">Quận/Huyện*</label>
                                 <select class="form-control" id="calc_shipping_district" required>
@@ -121,20 +122,20 @@
                                 <input class="address_2" name="cus_cur_district" type="hidden" required>
                             </div>
                         </div>
-                        <div class="col-sm-5" style="height:95px">
+                        <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_cur_ward">Xã/Phường* </label>
                                 <input type="text" class="form-control" name="cus_cur_ward" id="cus_cur_ward" required>
                             </div>
                         </div>
-                        <div class="col-sm-7" style="height:95px">
+                        <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_cur_address">Địa chỉ* </label>
                                 <input type="text" class="form-control" name="cus_cur_address"
                                     placeholder="số nhà, tên đường, khu/ phố" id="cus_cur_address" required>
                             </div>
                         </div>
-                        <div class="col-sm-5" style="height:95px">
+                        <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_income">Thu nhập hàng tháng (vnđ)*</label>
                                 <input type="text" class="form-control" name="cus_income"
@@ -144,7 +145,7 @@
                                 <small style="color:red;" class="form-text text-muted" id="error_cus_income"></small>
                             </div>
                         </div>
-                        <div class="col-sm-4" style="height:95px">
+                        <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_income_type">Loại hình thu nhập*</label>
                                 <select class="form-control" id="cus_income_type" name="cus_income_type"
@@ -158,10 +159,30 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-3" style="height:95px">
+                        <div class="col-sm-2" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_email">Email</label>
                                 <input type="text" class="form-control" name="cus_email" id="cus_email">
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style="height:95px">
+                            <div class="form-group">
+                                <label class="col-form-label" for="source">Nguồn thông tin</label>
+                                <select type="text" class="form-control" name="source" id="source">
+                                    <option value="" selected disabled hidden> Nguồn thông tin</option>
+                                    <option>Facebook</option>
+                                    <option>Zalo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style="height:95px">
+                            <div class="form-group">
+                                <label class="col-form-label" for="medium">Kênh thông tin</label>
+                                <select type="text" class="form-control" name="medium" id="medium">
+                                    <option value="" selected disabled hidden> Kênh thông tin</option>
+                                    <option>Inbox</option>
+                                    <option>Comment</option>
+                                </select>
                             </div>
                         </div>
                     </div>

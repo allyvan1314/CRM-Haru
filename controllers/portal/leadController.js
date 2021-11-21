@@ -61,6 +61,8 @@ const addLead = async (req, res, next) => {
         cus_income_type: data.cus_income_type,
         cus_email: data.cus_email == null?"":data.cus_email,
         user: user,
+        source: data.source,
+        medium: data.medium,
 
     });
     lead = await lead.save();
