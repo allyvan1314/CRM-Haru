@@ -40,6 +40,7 @@
                     <th>SĐT</th>
                     <th>Số tiền vay</th>
                     <th>Kỳ hạn vay</th>
+                    <th>Ngày ghi</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,6 +62,9 @@
                             <td>
                                 <%= lead.loan_duration %>
                             </td>
+                            <td>
+                                <%= lead.createdAt %>
+                            </td>
                             <!-- <td>
                             <a href="/updateCustomer/<%= lead._id %>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                             <a href="/deleteCustomer/<%= lead._id %>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
@@ -80,6 +84,7 @@
                     <th>SĐT</th>
                     <th>Số tiền vay</th>
                     <th>Kỳ hạn vay</th>
+                    <th>Ngày ghi</th>
                 </tr>
             </tfoot>
         </table>

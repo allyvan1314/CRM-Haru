@@ -38,7 +38,7 @@ const addLead = async (req, res, next) => {
     let BIRTHDAY = data.cus_dob;
     let PROVINCE = data.cus_cur_cit;
     let DISTRICT = data.cus_cur_district;
-    let INCOME = data.cus_income;
+    let INCOME = parseInt(data.cus_income.replace(/,/g, ''));
     let SEND_DATE = Date.now();
     let ERROR_CODE = "";
     let ERROR_MSG = "";
@@ -78,7 +78,7 @@ const addLead = async (req, res, next) => {
             yearOfBirth: data.cus_dob,
             province: data.cus_cur_city,
             district: data.cus_cur_district,
-            income: data.cus_income,
+            income: data.cus_income.replace(/,/g, ''),
             loanAmount: data.cus_loan_amount
         }
         await axios.post(process.env.URL_VMG, dataSend)
@@ -131,7 +131,7 @@ const addLead = async (req, res, next) => {
                 yearOfBirth: data.cus_dob,
                 province: data.cus_cur_city,
                 district: data.cus_cur_district,
-                income: data.cus_income,
+                income: data.cus_income.replace(/,/g, ''),
                 loanAmount: data.cus_loan_amount,
             }
             await axios.post(process.env.URL_VMG, dataSend)
@@ -226,10 +226,10 @@ const importExcel = (req, res, next) => {
     // if (! req.file || ! req.file.path) {
     //     return res.sendStatus(400);
     //   }
-    var paths = req.files.map(file => file.path)
+    // var paths = req.files.map(file => file.path)
 
-    console.log(req.file);
-    console.log(paths);
+    // console.log(req.file);
+    // console.log(paths);
 }
 
 
