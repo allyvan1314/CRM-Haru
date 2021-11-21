@@ -8,18 +8,25 @@
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css' rel='stylesheet'>
     <link href='' rel='stylesheet'>
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <style></style>
+    <style>
+        .body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+        }
+    </style>
 </head>
 
-<body oncontextmenu='return false' class='snippet-body'>
+<body oncontextmenu='return false'>
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary"style="width: 100%;">
-        <div class="container-fluid" >
-            <input onclick="location.href='/';" type="image" src="https://haru-media.com/wp-content/uploads/2020/09/Haru-Logo.png"/>
-            <input type="text" id="username" value="<%= username %>"hidden readonly></input>
-            <a href="/" class="btn btn-warning"style="float: right; margin-top: 15px;">Đăng xuất</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="width: 100%;">
+        <div class="container-fluid">
+            <input onclick="location.href='/allLeads';" type="image"
+                src="https://haru-media.com/wp-content/uploads/2020/09/Haru-Logo.png" />
+            <input type="text" id="username" value="<%= username %>" hidden readonly></input>
+            <a href="/" class="btn btn-warning" style="float: right; margin-top: 15px;">Đăng xuất</a>
 
         </div>
     </nav>
@@ -29,8 +36,10 @@
         </div>
         <div class="col-4" style="text-align:center;">
             <a href="/addLead" class="btn btn-primary float-right"><i class="fa fa-plus mr-1"></i>Thêm Lead mới</a>
-            <a href="/importExcel" class="btn btn-success float-right"><i class="fa fa-plus mr-1"></i>Thêm Lead (Excel)</a>
-            <a href="/checkLead" class="btn btn-info float-right"><i class="fa fa-plus mr-1"></i>Kiểm tra thông tin lead</a>
+            <a href="/importExcel" class="btn btn-success float-right"><i class="fa fa-plus mr-1"></i>Thêm Lead
+                (Excel)</a>
+            <a href="/checkLead" class="btn btn-info float-right"><i class="fa fa-plus mr-1"></i>Kiểm tra thông tin
+                lead</a>
         </div>
         <table id="example" class="table table-striped table-bordered" style="width:100%; ">
             <thead>
@@ -88,14 +97,14 @@
                 </tr>
             </tfoot>
         </table>
-    
-        
+
+
     </div>
     <script type='text/javascript' src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js'></script>
     <script type='text/javascript'>$(document).ready(function () {
             $('#example').DataTable();
         });</script>
-    
+
 </body>
 
 </html>
