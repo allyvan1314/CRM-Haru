@@ -78,7 +78,7 @@ app.get("/register",(req,res)=>{
 
 app.post("/register",(req,res)=>{
   
-  User.register(new User({username: req.body.username,phone:req.body.phone,telephone: req.body.telephone}),req.body.password,function(err,user){
+  User.register(new User({username: req.body.username,phone:req.body.phone,name: req.body.name}),req.body.password,function(err,user){
       if(err){
           console.log(err);
           res.render("register");
