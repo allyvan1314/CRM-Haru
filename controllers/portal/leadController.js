@@ -82,7 +82,7 @@ const addLead = async (req, res, next) => {
             province: data.cus_cur_city,
             district: data.cus_cur_district,
             income: data.cus_income.replace(/,/g, ''),
-            loanAmount: data.cus_loan_amount.replace(/,/g,'')
+            loanAmount: data.loan_amount.replace(/,/g,'')
         }
         await axios.post(process.env.URL_VMG, dataSend)
             .then((res) => {
@@ -136,7 +136,7 @@ const addLead = async (req, res, next) => {
                 province: data.cus_cur_city,
                 district: data.cus_cur_district,
                 income: data.cus_income.replace(/,/g, ''),
-                loanAmount: data.cus_loan_amount.replace(/,/g,''),
+                loanAmount: data.loan_amount.replace(/,/g,''),
             }
             await axios.post(process.env.URL_VMG, dataSend)
                 .then((res) => {
