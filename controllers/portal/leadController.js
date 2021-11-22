@@ -36,9 +36,10 @@ const addLead = async (req, res, next) => {
     let ADDRESS = data.cus_cur_address;
     let GENDER = data.cus_gender == "Nam" ? 1 : 2;
     let BIRTHDAY = data.cus_dob;
-    let PROVINCE = data.cus_cur_cit;
+    let PROVINCE = data.cus_cur_city;
     let DISTRICT = data.cus_cur_district;
     let INCOME = parseInt(data.cus_income.replace(/,/g, ''));
+    let LOAN_AMOUNT = parseInt(data.loan_amount.replace(/,/g,''));
     let SEND_DATE = Date.now();
     let ERROR_CODE = "";
     let ERROR_MSG = "";
@@ -81,7 +82,7 @@ const addLead = async (req, res, next) => {
             province: data.cus_cur_city,
             district: data.cus_cur_district,
             income: data.cus_income.replace(/,/g, ''),
-            loanAmount: data.cus_loan_amount
+            loanAmount: data.cus_loan_amount.replace(/,/g,'')
         }
         await axios.post(process.env.URL_VMG, dataSend)
             .then((res) => {
@@ -104,6 +105,7 @@ const addLead = async (req, res, next) => {
             PROVINCE,
             DISTRICT,
             INCOME,
+            LOAN_AMOUNT,
             SEND_DATE,
             ERROR_CODE,
             ERROR_MSG,
@@ -134,7 +136,7 @@ const addLead = async (req, res, next) => {
                 province: data.cus_cur_city,
                 district: data.cus_cur_district,
                 income: data.cus_income.replace(/,/g, ''),
-                loanAmount: data.cus_loan_amount,
+                loanAmount: data.cus_loan_amount.replace(/,/g,''),
             }
             await axios.post(process.env.URL_VMG, dataSend)
                 .then((res) => {
@@ -157,6 +159,7 @@ const addLead = async (req, res, next) => {
                 PROVINCE,
                 DISTRICT,
                 INCOME,
+                LOAN_AMOUNT,
                 SEND_DATE,
                 ERROR_CODE,
                 ERROR_MSG,
