@@ -51,7 +51,7 @@
 
                             </div>
                         </div>
-                        
+
                         <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_id">Số CMND/CCCD*</label>
@@ -107,19 +107,19 @@
                         <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label">Tỉnh/Thành phố*</label>
-                                <select class="form-control" id="calc_shipping_city" required>
-                                    <option value="" selected disabled onkeyup="update_hidden_city()">Tỉnh / Thành phố</option>
+                                <select class="form-control" onchange="change_city()" id="calc_shipping_city">
+                                    <option value="">Tỉnh / Thành phố</option>
                                 </select>
-                                <input required type="hidden" class="address_1" name="cus_cur_city" id="cus_cur_city">
+                                <input class="address_1" name="cus_cur_city" id="cus_cur_city" hidden>
                             </div>
                         </div>
                         <div class="col-sm-3" style="height:95px">
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_cur_district">Quận/Huyện*</label>
-                                <select class="form-control" id="calc_shipping_district" required>
-                                    <option value="" selected disabled>Quận / Huyện</option>
+                                <select class="form-control" id="calc_shipping_district">
+                                    <option value="">Quận / Huyện</option>
                                 </select>
-                                <input class="address_2" name="cus_cur_district" type="hidden" required>
+                                <input class="address_2" name="cus_cur_district" hidden>
                             </div>
                         </div>
                         <div class="col-sm-3" style="height:95px">
@@ -204,6 +204,7 @@
     <script>
         //<![CDATA[
         window.addEventListener('load', function () {
+            
             if (address_2 = localStorage.getItem('address_2_saved')) {
                 $('#calc_shipping_district option').each(function () {
                     if ($(this).text() == address_2) { $(this).attr('selected', '') }
@@ -229,7 +230,7 @@
                 c.forEach(function (i, e) {
                     e += +1
                     stc += '<option value=' + e + '>' + i + '</option>'
-                    $this.html('<option selected value="">Tỉnh / Thành phố</option>' + stc)
+                    $this.html('<option value="">Tỉnh / Thành phố</option>' + stc)
                     if (address_1 = localStorage.getItem('address_1_saved')) {
                         $('#calc_shipping_city option').each(function () {
                             if ($(this).text() == address_1) {
@@ -245,7 +246,7 @@
                         if (r != '') {
                             arr[i].forEach(function (el) {
                                 str += '<option value="' + el + '">' + el + '</option>'
-                                $('#calc_shipping_district').html('<option selected value="">Quận / Huyện</option>' + str)
+                                $('#calc_shipping_district').html('<option value="">Quận / Huyện</option>' + str)
                             })
                             var address_1 = $this.children('option:selected').text()
                             var district = $('#calc_shipping_district').html()
@@ -262,7 +263,7 @@
                                 localStorage.setItem('address_2_saved', address_2)
                             })
                         } else {
-                            $('#calc_shipping_district').html('<option selected value="">Quận / Huyện</option>')
+                            $('#calc_shipping_district').html('<option value="">Quận / Huyện</option>')
                             district = $('#calc_shipping_district').html()
                             localStorage.setItem('district', district)
                             localStorage.removeItem('address_1_saved', address_1)
@@ -388,11 +389,11 @@
             }
         }
 
-        function update_hidden_city(){
-            var val_city = document.getElementById('calc_shipping_city').value;
-            document.getElementById("cus_cur_city").value = val_city;
-        }
-
+        function change_city() {
+                var city = parseInt(document.getElementById("calc_shipping_city").value);
+                let list_city = ['An Giang','Bà Rịa - Vũng Tàu','Bạc Liêu','Bắc Kạn','Bắc Giang','Bắc Ninh','Bến Tre','Bình Dương','Bình Định','Bình Phước','Bình Thuận','Cà Mau','Cao Bằng','Cần Thơ','Đà Nẵng','Đắk Lắk','Đắk Nông','Đồng Nai','Đồng Tháp','Điện Biên','Gia Lai','Hà Giang','Hà Nam','Hà Nội','Hà Tĩnh','Hải Dương','Hải Phòng','Hoà Bình','Hậu Giang','Hưng Yên','Hồ Chí Minh','Khánh Hòa','Kiên Giang','Kon Tum','Lai Châu','Lào Cai','Lạng Sơn','Lâm Đồng','Long An','Nam Định','Nghệ An','Ninh Bình','Ninh Thuận','Phú Thọ','Phú Yên','Quảng Bình','Quảng Nam','Quảng Ngãi','Quảng Ninh','Quảng Trị','Sóc Trăng','Sơn La','Tây Ninh','Thái Bình','Thái Nguyên','Thanh Hóa','Thừa Thiên Huế','Tiền Giang','Trà Vinh','Tuyên Quang','Vĩnh Long','Vĩnh Phúc','Yên Bái']
+                document.getElementById("cus_cur_city").value = list_city[city-1];
+            }
 
     </script>
 </body>
