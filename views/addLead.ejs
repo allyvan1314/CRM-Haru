@@ -108,7 +108,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Tỉnh/Thành phố*</label>
                                 <select class="form-control" id="calc_shipping_city" required>
-                                    <option value="" selected disabled>Tỉnh / Thành phố</option>
+                                    <option value="" selected disabled onkeyup="update_hidden_city()">Tỉnh / Thành phố</option>
                                 </select>
                                 <input required type="hidden" class="address_1" name="cus_cur_city" id="cus_cur_city">
                             </div>
@@ -386,6 +386,11 @@
             else {
                 document.getElementById("error_cus_income").innerHTML = "";
             }
+        }
+
+        function update_hidden_city(){
+            var val_city = document.getElementById('calc_shipping_city').value;
+            document.getElementById("cus_cur_city").value = val_city;
         }
 
 
