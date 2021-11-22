@@ -108,7 +108,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Tỉnh/Thành phố*</label>
                                 <select class="form-control" id="calc_shipping_city" required>
-                                    <option value="" selected disabled hidden>Tỉnh / Thành phố</option>
+                                    <option value="" selected disabled>Tỉnh / Thành phố</option>
                                 </select>
                                 <input required type="hidden" class="address_1" name="cus_cur_city" id="cus_cur_city">
                             </div>
@@ -117,7 +117,7 @@
                             <div class="form-group">
                                 <label class="col-form-label" for="cus_cur_district">Quận/Huyện*</label>
                                 <select class="form-control" id="calc_shipping_district" required>
-                                    <option value="" selected disabled hidden>Quận / Huyện</option>
+                                    <option value="" selected disabled>Quận / Huyện</option>
                                 </select>
                                 <input class="address_2" name="cus_cur_district" type="hidden" required>
                             </div>
@@ -229,7 +229,7 @@
                 c.forEach(function (i, e) {
                     e += +1
                     stc += '<option value=' + e + '>' + i + '</option>'
-                    $this.html('<option value="">Tỉnh / Thành phố</option>' + stc)
+                    $this.html('<option selected value="">Tỉnh / Thành phố</option>' + stc)
                     if (address_1 = localStorage.getItem('address_1_saved')) {
                         $('#calc_shipping_city option').each(function () {
                             if ($(this).text() == address_1) {
@@ -245,7 +245,7 @@
                         if (r != '') {
                             arr[i].forEach(function (el) {
                                 str += '<option value="' + el + '">' + el + '</option>'
-                                $('#calc_shipping_district').html('<option value="">Quận / Huyện</option>' + str)
+                                $('#calc_shipping_district').html('<option selected value="">Quận / Huyện</option>' + str)
                             })
                             var address_1 = $this.children('option:selected').text()
                             var district = $('#calc_shipping_district').html()
@@ -262,7 +262,7 @@
                                 localStorage.setItem('address_2_saved', address_2)
                             })
                         } else {
-                            $('#calc_shipping_district').html('<option value="">Quận / Huyện</option>')
+                            $('#calc_shipping_district').html('<option selected value="">Quận / Huyện</option>')
                             district = $('#calc_shipping_district').html()
                             localStorage.setItem('district', district)
                             localStorage.removeItem('address_1_saved', address_1)
