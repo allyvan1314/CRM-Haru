@@ -211,7 +211,11 @@ const checkLead = async (req, res, next) => {
         let leadStatus = await leadStatusRepository.getLeadStatusByRequestID(sendLogInfo[0].REQ_ID)
         let final_status = ""
         if (leadStatus.length == 0) {
-            final_status = "đã gửi VMG"
+            if(sendLogInfo[0].ERROR_MSG == null) {
+                final_status = "Chưa gửi VMG"
+            }
+            else
+            final_status = "Đã gửi VMG"
         } else {
             if (leadStatus[0].status == "4") {
                 final_status = " Gửi Fico thành công"
