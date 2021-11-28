@@ -188,7 +188,7 @@ const checkLeadView = async (req, res, next) => {
         found: "",
         phone: "",
         channel: "",
-        send_date: "",
+        send_date: "", 
         vmg_status: "",
         final_status: ""
     });
@@ -198,7 +198,7 @@ const checkLead = async (req, res, next) => {
     const phone = req.body.cus_phone;
     let sendLogInfo = await sendLogRepository.getLogByPhone(phone);
     // let data = ""
-    if (sendLogInfo.length == 0) {
+    if (sendLogInfo.length == 0 || sendLogInfo[0].ERROR_MSG == null) {
         res.render('checkLead', {
             found: "Không tìm thấy khách hàng",
             phone: "",
@@ -211,11 +211,7 @@ const checkLead = async (req, res, next) => {
         let leadStatus = await leadStatusRepository.getLeadStatusByRequestID(sendLogInfo[0].REQ_ID)
         let final_status = ""
         if (leadStatus.length == 0) {
-            if(sendLogInfo[0].ERROR_MSG == null) {
-                final_status = "Chưa gửi VMG"
-            }
-            else
-            final_status = "Đã gửi VMG"
+            final_status = "đã gửi VMG"
         } else {
             if (leadStatus[0].status == "4") {
                 final_status = " Gửi Fico thành công"
