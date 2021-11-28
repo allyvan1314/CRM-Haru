@@ -38,8 +38,8 @@ const addLead = async (req, res, next) => {
     let BIRTHDAY = data.cus_dob;
     let PROVINCE = data.cus_cur_city;
     let DISTRICT = data.cus_cur_district;
-    let INCOME = parseInt(data.cus_income.replace(/,/g, ''));
-    let LOAN_AMOUNT = parseInt(data.loan_amount.replace(/,/g,''));
+    let INCOME = data.cus_income == "" ? 0 : parseInt(data.cus_income.replace(/,/g, ''));
+    let LOAN_AMOUNT = data.loan_amount == "" ? 0 : parseInt(data.loan_amount.replace(/,/g, ''));
     let SEND_DATE = Date.now();
     let ERROR_CODE = "";
     let ERROR_MSG = "";
@@ -60,7 +60,7 @@ const addLead = async (req, res, next) => {
         cus_cur_address: data.cus_cur_address,
         cus_income: data.cus_income,
         cus_income_type: data.cus_income_type,
-        cus_email: data.cus_email == null?"":data.cus_email,
+        cus_email: data.cus_email == null ? "" : data.cus_email,
         user: user,
         source: data.source,
         medium: data.medium,
@@ -81,11 +81,16 @@ const addLead = async (req, res, next) => {
             yearOfBirth: data.cus_dob,
             province: data.cus_cur_city,
             district: data.cus_cur_district,
+            email: data.cus_email,
             income: data.cus_income.replace(/,/g, ''),
-            loanAmount: data.loan_amount.replace(/,/g,'')
+            loanAmount: data.loan_amount.replace(/,/g, ''),
+            loanTenor: data.loan_duration,
+            incomeType: data.cus_income_type,
+
         }
         await axios.post(process.env.URL_VMG, dataSend)
             .then((res) => {
+                console.log("========== DIGITAL ==========");
                 console.log(`Status: ${res.status}`);
                 console.log('Body: ', res.data);
                 ERROR_CODE = res.data.errorCode;
@@ -135,11 +140,15 @@ const addLead = async (req, res, next) => {
                 yearOfBirth: data.cus_dob,
                 province: data.cus_cur_city,
                 district: data.cus_cur_district,
+                email: data.cus_email,
                 income: data.cus_income.replace(/,/g, ''),
-                loanAmount: data.loan_amount.replace(/,/g,''),
+                loanAmount: data.loan_amount.replace(/,/g, ''),
+                loanTenor: data.loan_duration,
+                incomeType: data.cus_income_type,
             }
             await axios.post(process.env.URL_VMG, dataSend)
                 .then((res) => {
+                    console.log("========== DIGITAL ==========");
                     console.log(`Status: ${res.status}`);
                     console.log('Body: ', res.data);
                     ERROR_CODE = res.data.errorCode;
