@@ -38,13 +38,16 @@ const addLead = async (req, res, next) => {
     let BIRTHDAY = data.cus_dob;
     let PROVINCE = data.cus_cur_city;
     let DISTRICT = data.cus_cur_district;
+    let EMAIL = data.cus_email;
     let INCOME = data.cus_income == "" ? 0 : parseInt(data.cus_income.replace(/,/g, ''));
+    let INCOME_TYPE = data.cus_income_type;
     let LOAN_AMOUNT = data.loan_amount == "" ? 0 : parseInt(data.loan_amount.replace(/,/g, ''));
+    let LOAN_TENOR = data.loan_duration;
     let SEND_DATE = Date.now();
     let ERROR_CODE = "";
     let ERROR_MSG = "";
     let REQ_ID = "";
-    let CHANNEL = "DIGITAL"
+    let CHANNEL = "DIGITAL";
     let user = req.user.username;
     var lead = await new Lead({
         loan_amount: data.loan_amount,
@@ -109,8 +112,11 @@ const addLead = async (req, res, next) => {
             BIRTHDAY,
             PROVINCE,
             DISTRICT,
+            EMAIL,
             INCOME,
+            INCOME_TYPE,
             LOAN_AMOUNT,
+            LOAN_TENOR,
             SEND_DATE,
             ERROR_CODE,
             ERROR_MSG,
@@ -167,8 +173,11 @@ const addLead = async (req, res, next) => {
                 BIRTHDAY,
                 PROVINCE,
                 DISTRICT,
+                EMAIL,
                 INCOME,
+                INCOME_TYPE,
                 LOAN_AMOUNT,
+                LOAN_TENOR,
                 SEND_DATE,
                 ERROR_CODE,
                 ERROR_MSG,
@@ -188,7 +197,7 @@ const checkLeadView = async (req, res, next) => {
         found: "",
         phone: "",
         channel: "",
-        send_date: "", 
+        send_date: "",
         vmg_status: "",
         final_status: ""
     });
