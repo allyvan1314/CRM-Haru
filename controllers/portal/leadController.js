@@ -34,7 +34,7 @@ const addLead = async (req, res, next) => {
     let FULL_NAME = data.cus_name;
     let ID_CARD = data.cus_id;
     let ADDRESS = data.cus_cur_address;
-    let GENDER = data.cus_gender == "Nam" ? 1 : 2;
+    let GENDER = data.cus_gender == "Nam" ? 1 : 0;
     let BIRTHDAY = data.cus_dob;
     let PROVINCE = data.cus_cur_city;
     let DISTRICT = data.cus_cur_district;
@@ -80,7 +80,7 @@ const addLead = async (req, res, next) => {
             nationalId: data.cus_id,
             address: data.cus_cur_address,
             phoneNumber: data.cus_phone,
-            gender: (data.cus_gender == "Nam" ? 1 : 2),
+            gender: (data.cus_gender == "Nam" ? 1 : 0),
             yearOfBirth: data.cus_dob,
             province: data.cus_cur_city,
             district: data.cus_cur_district,
@@ -142,7 +142,7 @@ const addLead = async (req, res, next) => {
                 nationalId: data.cus_id,
                 address: data.cus_cur_address,
                 phoneNumber: data.cus_phone,
-                gender: (data.cus_gender == "Nam" ? 1 : 2),
+                gender: (data.cus_gender == "Nam" ? 1 : 0),
                 yearOfBirth: data.cus_dob,
                 province: data.cus_cur_city,
                 district: data.cus_cur_district,
