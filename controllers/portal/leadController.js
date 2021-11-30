@@ -71,7 +71,7 @@ const addLead = async (req, res, next) => {
     });
     lead = await lead.save();
     let sendLogCheck = await sendLogRepository.getLogByPhone(PHONE_NUMBER)
-    if (sendLogCheck.length == 0) {
+    if (sendLogCheck.length == 0||sendLogCheck.ERROR_CODE==null) {
         let dataSend = {
             cmd: process.env.CMD_VMG,
             campaignId: process.env.CAMPAIGN_VMG_DIGITAL,
