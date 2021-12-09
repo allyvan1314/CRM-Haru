@@ -87,7 +87,7 @@ async function processNewLead(leadId) {
     const leadInfo = leadForm.join('\n');
     let LEAD = leadInfo;
 
-    let info = new fbLead({Lead});
+    let info = new fbLead({Lead:LEAD});
 
     await fbLeadRepository.addFbLead(info)
     // Log to console
