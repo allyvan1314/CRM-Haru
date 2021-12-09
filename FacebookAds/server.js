@@ -89,7 +89,7 @@ async function processNewLead(leadId) {
     //let LEAD = leadInfo;
 
     console.log(leadForm);
-    console.log(leadMap);
+    console.log(leadMap.get('số_điện_thoại_liên_hệ'));
     let info = new fbLead({
         Phone:leadForm[0].số_điện_thoại_liên_hệ,
         Name:leadForm[2].fieldValue
