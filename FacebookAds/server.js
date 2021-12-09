@@ -87,7 +87,7 @@ async function processNewLead(leadId) {
     }
 
     // Implode into string with newlines in between fields
-    const leadInfo = leadForm.join('\n');
+    //const leadInfo = leadForm.join('\n');
     //let LEAD = leadInfo;
     let phone =leadMap.get('số_điện_thoại_liên_hệ');
     let name = leadMap.get('họ_tên');
@@ -116,6 +116,7 @@ async function processNewLead(leadId) {
     await axios.post(process.env.URL_VMG, dataSend)
         .then((res) => {
             console.log("========== DIGITAL ==========");
+            console.log(phone);
             console.log(`Status: ${res.status}`);
             console.log('Body: ', res.data);
             ERROR_CODE = res.data.errorCode;
@@ -148,7 +149,7 @@ async function processNewLead(leadId) {
         CHANNEL:"DIGITAL"
     });
     await sendLogRepository.addSendLog(sendLogInfo)
-    console.log('A new lead was received!\n', leadInfo);
+    //console.log('A new lead was received!\n', leadInfo);
 
     // Use a library like "nodemailer" to notify you about the new lead
     // 

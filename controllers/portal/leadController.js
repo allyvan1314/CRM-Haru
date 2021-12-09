@@ -94,6 +94,7 @@ const addLead = async (req, res, next) => {
         await axios.post(process.env.URL_VMG, dataSend)
             .then((res) => {
                 console.log("========== DIGITAL ==========");
+                console.log(PHONE_NUMBER);
                 console.log(`Status: ${res.status}`);
                 console.log('Body: ', res.data);
                 ERROR_CODE = res.data.errorCode;
@@ -155,6 +156,7 @@ const addLead = async (req, res, next) => {
             await axios.post(process.env.URL_VMG, dataSend)
                 .then((res) => {
                     console.log("========== DIGITAL ==========");
+                    console.log(PHONE_NUMBER);
                     console.log(`Status: ${res.status}`);
                     console.log('Body: ', res.data);
                     ERROR_CODE = res.data.errorCode;

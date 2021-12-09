@@ -60,6 +60,8 @@ module.exports.create = async (req, res) => {
         }
         await axios.post(process.env.URL_VMG, dataSend)
             .then((res) => {
+                console.log("========== VMS ==========");
+                console.log(PHONE_NUMBER);
                 console.log(`Status: ${res.status}`);
                 console.log('Body: ', res.data);
                 ERROR_CODE = res.data.errorCode;
@@ -80,7 +82,9 @@ module.exports.create = async (req, res) => {
 
         let sendLogInfo = new sendLog({ PHONE_NUMBER, KEY_PRESS, SEND_DATE, IS_SEND });
         await sendLogRepository.addSendLog(sendLogInfo)
-        console.log('not send');
+        console.log("========== VMS ==========");
+        console.log(PHONE_NUMBER);
+        console.log("not send");
     }
 
 };
