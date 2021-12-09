@@ -2,7 +2,8 @@ const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
 var xhub = require('express-x-hub');
-
+const fbLead = require("./fbmodels");
+const fbLeadRepository = require("./fbrepository");
 const router = express.Router();
 
 // const app = express();
@@ -83,7 +84,11 @@ async function processNewLead(leadId) {
 
     // Implode into string with newlines in between fields
     const leadInfo = leadForm.join('\n');
+    let LEAD = leadInfo;
 
+    let info = new fbLead({LEAD});
+
+    await fbLeadRepository.addFbLead(info)
     // Log to console
     console.log('A new lead was received!\n', leadInfo);
 
