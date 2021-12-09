@@ -8,7 +8,6 @@ const router = express.Router();
 const dotenv = require("dotenv"); 
 const sendLog = require("../models/api/sendLog.model.js");
 const sendLogRepository = require("../repository/sendLog.repository.js");
-const axios = require('axios');
 
 // const app = express();
 // const port = 3000;
