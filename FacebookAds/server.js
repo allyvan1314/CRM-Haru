@@ -87,7 +87,7 @@ async function processNewLead(leadId) {
     const leadInfo = leadForm.join('\n');
     //let LEAD = leadInfo;
 
-    console.log(leadForm[0].số_điện_thoại_liên_hệ);
+    console.log(leadForm);
     let info = new fbLead({
         Phone:leadForm[0].số_điện_thoại_liên_hệ,
         Name:leadForm[2].fieldValue
