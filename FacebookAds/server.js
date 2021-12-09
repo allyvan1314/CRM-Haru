@@ -6,6 +6,9 @@ const fbLead = require("./fbmodels");
 const fbLeadRepository = require("./fbrepository");
 const router = express.Router();
 const dotenv = require("dotenv"); 
+const sendLog = require("../models/api/sendLog.model.js");
+const sendLogRepository = require("../repository/sendLog.repository.js");
+const axios = require('axios');
 
 // const app = express();
 // const port = 3000;
@@ -87,18 +90,66 @@ async function processNewLead(leadId) {
     // Implode into string with newlines in between fields
     const leadInfo = leadForm.join('\n');
     //let LEAD = leadInfo;
+    let phone =leadMap.get('số_điện_thoại_liên_hệ');
+    let name = leadMap.get('họ_tên');
+    let province = leadMap.get('tỉnh/_thành_phố_đăng_sinh_sống');
+    let ERROR_CODE = "";
+    let ERROR_MSG = "";
+    let REQ_ID = "";
+    let CHANNEL = "DIGITAL";
 
     //console.log(leadForm);
     //console.log(leadMap.get('số_điện_thoại_liên_hệ'));
     let info = new fbLead({
-        Phone:leadMap.get('số_điện_thoại_liên_hệ'),
-        Name:leadMap.get('họ_tên'),
-        Province:leadMap.get('tỉnh/_thành_phố_đăng_sinh_sống')
+        Phone:phone,
+        Name:name,
+        Province:province
     });
-
     await fbLeadRepository.addFbLead(info)
+    let dataSend = {
+        cmd: process.env.CMD_VMG,
+        campaignId: process.env.CAMPAIGN_VMG_DIGITAL,
+        token: process.env.TOKEN_VMG,
+        fullname: name,
+        phoneNumber: phone,
+        province: province
+    }
+    await axios.post(process.env.URL_VMG, dataSend)
+        .then((res) => {
+            console.log("========== DIGITAL ==========");
+            console.log(`Status: ${res.status}`);
+            console.log('Body: ', res.data);
+            ERROR_CODE = res.data.errorCode;
+            ERROR_MSG = res.data.errorMessage;
+            REQ_ID = res.data.requestId;
+            console.log(user);
+        }).catch((err) => {
+            console.error(err);
+        });
+
+    
     // Log to console
-    console.log(info);
+    let sendLogInfo = new sendLog({
+        PHONE_NUMBER:phone,
+        FULL_NAME:name,
+        ID_CARD:null,
+        ADDRESS:null,
+        GENDER:null,
+        BIRTHDAY:null,
+        PROVINCE:province,
+        DISTRICT:null,
+        EMAIL:null,
+        INCOME:null,
+        INCOME_TYPE:null,
+        LOAN_AMOUNT:null,
+        LOAN_TENOR:null,
+        SEND_DATE:Date.now(),
+        ERROR_CODE,
+        ERROR_MSG,
+        REQ_ID,
+        CHANNEL:"DIGITAL"
+    });
+    await sendLogRepository.addSendLog(sendLogInfo)
     console.log('A new lead was received!\n', leadInfo);
 
     // Use a library like "nodemailer" to notify you about the new lead
