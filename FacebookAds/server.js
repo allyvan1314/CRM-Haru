@@ -5,12 +5,13 @@ var xhub = require('express-x-hub');
 const fbLead = require("./fbmodels");
 const fbLeadRepository = require("./fbrepository");
 const router = express.Router();
+const dotenv = require("dotenv"); 
 
 // const app = express();
 // const port = 3000;
 
 // Enter the Page Access Token from the previous step
-const FACEBOOK_PAGE_ACCESS_TOKEN = 'EAAEbeW79Bo0BAAK64SxU4LdXYZAyb7fMnaZA4T2dpVOFzrU2MVwHOFasfAnKUsdk6uZAQuBYvAKZBDj57ZCJZAdDhTLnTiaAwr4JBhukpiFU0RswAQgXgfCMwwPOhmkqzcBq2AD8OpOPTIE9j7buyTqWCOI6iL25NW0feYhetBYeNwgonH0GPujfpgkTie6Gbj4M29w0AVeAZDZD';
+const FACEBOOK_PAGE_ACCESS_TOKEN = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
 
 // Accept JSON POST body
 router.use(bodyParser.json());
