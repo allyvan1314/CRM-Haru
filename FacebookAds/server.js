@@ -88,16 +88,17 @@ async function processNewLead(leadId) {
     const leadInfo = leadForm.join('\n');
     //let LEAD = leadInfo;
 
-    console.log(leadForm);
-    console.log(leadMap.get('số_điện_thoại_liên_hệ'));
+    //console.log(leadForm);
+    //console.log(leadMap.get('số_điện_thoại_liên_hệ'));
     let info = new fbLead({
-        Phone:leadForm[0].số_điện_thoại_liên_hệ,
-        Name:leadForm[2].fieldValue
+        Phone:leadMap.get('số_điện_thoại_liên_hệ'),
+        Name:leadMap.get('họ_tên'),
+        Province:leadMap.get('tỉnh/_thành_phố_đăng_sinh_sống')
     });
 
-    //await fbLeadRepository.addFbLead(info)
+    await fbLeadRepository.addFbLead(info)
     // Log to console
-    //console.log(info);
+    console.log(info);
     console.log('A new lead was received!\n', leadInfo);
 
     // Use a library like "nodemailer" to notify you about the new lead
