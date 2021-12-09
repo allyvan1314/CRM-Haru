@@ -72,7 +72,7 @@ async function processNewLead(leadId) {
 
     // Lead fields
     const leadForm = [];
-
+    let leadMap = new Map();
     // Extract fields
     for (const field of response.data.field_data) {
         // Get field name & value
@@ -81,6 +81,7 @@ async function processNewLead(leadId) {
 
         // Store in lead array
         leadForm.push(`${fieldName}: ${fieldValue}`);
+        leadMap.set(`${fieldName}`,`${fieldValue}`)
     }
 
     // Implode into string with newlines in between fields
@@ -88,6 +89,7 @@ async function processNewLead(leadId) {
     //let LEAD = leadInfo;
 
     console.log(leadForm);
+    console.log(leadMap);
     let info = new fbLead({
         Phone:leadForm[0].số_điện_thoại_liên_hệ,
         Name:leadForm[2].fieldValue
