@@ -88,12 +88,11 @@ async function processNewLead(leadId) {
     //let LEAD = leadInfo;
 
     let info = new fbLead({
-        Phone:leadForm[0].fieldValue,
-        Province:leadForm[1].fieldValue,
+        Phone:leadForm[0].số_điện_thoại_liên_hệ,
         Name:leadForm[2].fieldValue
     });
 
-    //await fbLeadRepository.addFbLead(info)
+    await fbLeadRepository.addFbLead(info)
     // Log to console
     console.log(info);
     console.log('A new lead was received!\n', leadInfo);
