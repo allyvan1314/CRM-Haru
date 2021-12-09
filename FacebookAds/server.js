@@ -84,7 +84,7 @@ async function processNewLead(leadId) {
     }
 
     // Implode into string with newlines in between fields
-    //const leadInfo = leadForm.join('\n');
+    const leadInfo = leadForm.join('\n');
     //let LEAD = leadInfo;
 
     let info = new fbLead({
