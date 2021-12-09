@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 
 const fbLeadSchema = new mongoose.Schema(
     {
-        Lead: String
+        Phone:String,
+        Province:String,
+        Name:String
     },
     { timestamps: true }
 );

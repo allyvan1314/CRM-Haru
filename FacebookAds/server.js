@@ -84,13 +84,18 @@ async function processNewLead(leadId) {
     }
 
     // Implode into string with newlines in between fields
-    const leadInfo = leadForm.join('\n');
+    //const leadInfo = leadForm.join('\n');
     let LEAD = leadInfo;
 
-    let info = new fbLead({Lead:LEAD});
+    let info = new fbLead({
+        Phone:leadForm[0].fieldValue,
+        Province:leadForm[1].fieldValue,
+        Name:leadForm[2].fieldValue
+    });
 
-    await fbLeadRepository.addFbLead(info)
+    //await fbLeadRepository.addFbLead(info)
     // Log to console
+    console.log(info);
     console.log('A new lead was received!\n', leadInfo);
 
     // Use a library like "nodemailer" to notify you about the new lead
