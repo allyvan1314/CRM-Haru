@@ -7,3 +7,7 @@ async function addFbLead(fbLead) {
         console.log(err);
     }
 }
+
+module.exports = {
+    addFbLead
+};
