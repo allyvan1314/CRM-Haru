@@ -121,7 +121,6 @@ async function processNewLead(leadId) {
             ERROR_CODE = res.data.errorCode;
             ERROR_MSG = res.data.errorMessage;
             REQ_ID = res.data.requestId;
-            console.log(user);
         }).catch((err) => {
             console.error(err);
         });
