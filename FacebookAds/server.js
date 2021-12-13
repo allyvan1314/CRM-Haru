@@ -5,7 +5,7 @@ var xhub = require('express-x-hub');
 const fbLead = require("./fbmodels");
 const fbLeadRepository = require("./fbrepository");
 const router = express.Router();
-const dotenv = require("dotenv"); 
+const dotenv = require("dotenv");
 const sendLog = require("../models/api/sendLog.model.js");
 const sendLogRepository = require("../repository/sendLog.repository.js");
 
@@ -36,22 +36,30 @@ router.post('/webhook', async (req, res) => {
     console.log('Facebook request body:', req.body);
 
     if (!req.body.entry) {
-        return res.status(500).send({ error: 'Invalid POST data received' });
+        return res.status(500).send({
+            error: 'Invalid POST data received'
+        });
     }
-
+    let leadType = "";
     // Travere entries & changes and process lead IDs
     for (const entry of req.body.entry) {
         for (const change of entry.changes) {
             // define lead form
-            if (change.value.form_id==="275686054524805")
-                console.log("lead form 06-12-2021")
+            if (change.value.form_id === "275686054524805")
+                leadType = "lead0612";
+            if (change.value.form_id === "231276709136039")
+                leadType = "mess1312";
+            if (change.value.form_id === "970485890483632")
+                leadType = "lead0612";
             // Process new lead (leadgen_id)
-            await processNewLead(change.value.leadgen_id);
+            await processNewLead(change.value.leadgen_id, leadType);
         }
     }
 
     // Success
-    res.send({ success: true });
+    res.send({
+        success: true
+    });
 })
 
 // app.listen(port, () => {
@@ -59,7 +67,7 @@ router.post('/webhook', async (req, res) => {
 // });
 
 // Process incoming leads
-async function processNewLead(leadId) {
+async function processNewLead(leadId, leadType) {
     let response;
 
     try {
@@ -86,28 +94,36 @@ async function processNewLead(leadId) {
 
         // Store in lead array
         leadForm.push(`${fieldName}: ${fieldValue}`);
-        leadMap.set(`${fieldName}`,`${fieldValue}`)
+        leadMap.set(`${fieldName}`, `${fieldValue}`)
     }
 
     // Implode into string with newlines in between fields
     //const leadInfo = leadForm.join('\n');
     //let LEAD = leadInfo;
     //console.log(response);
-
-    let phone =leadMap.get('số_điện_thoại_liên_hệ');
-    let name = leadMap.get('họ_tên');
-    let province = leadMap.get('tỉnh/_thành_phố_đăng_sinh_sống');
+    let phone = "";
+    let name = "";
+    let province = "";
     let ERROR_CODE = "";
     let ERROR_MSG = "";
     let REQ_ID = "";
     let CHANNEL = "DIGITAL";
+    switch (leadType) {
+        case "lead0612":
+            phone = leadMap.get('số_điện_thoại_liên_hệ');
+            name = leadMap.get('họ_tên');
+            province = leadMap.get('tỉnh/_thành_phố_đăng_sinh_sống');
+            break;
+    }
+
+
 
     //console.log(leadForm);
     //console.log(leadMap.get('số_điện_thoại_liên_hệ'));
     let info = new fbLead({
-        Phone:phone,
-        Name:name,
-        Province:province
+        Phone: phone,
+        Name: name,
+        Province: province
     });
     await fbLeadRepository.addFbLead(info)
     let dataSend = {
@@ -120,7 +136,6 @@ async function processNewLead(leadId) {
     }
     await axios.post(process.env.URL_VMG, dataSend)
         .then((res) => {
-            console.log("========== DIGITAL ==========");
             console.log(phone);
             console.log(`Status: ${res.status}`);
             console.log('Body: ', res.data);
@@ -131,27 +146,27 @@ async function processNewLead(leadId) {
             console.error(err);
         });
 
-    
+
     // Log to console
     let sendLogInfo = new sendLog({
-        PHONE_NUMBER:phone,
-        FULL_NAME:name,
-        ID_CARD:null,
-        ADDRESS:null,
-        GENDER:null,
-        BIRTHDAY:null,
-        PROVINCE:province,
-        DISTRICT:null,
-        EMAIL:null,
-        INCOME:null,
-        INCOME_TYPE:null,
-        LOAN_AMOUNT:null,
-        LOAN_TENOR:null,
-        SEND_DATE:Date.now(),
+        PHONE_NUMBER: phone,
+        FULL_NAME: name,
+        ID_CARD: null,
+        ADDRESS: null,
+        GENDER: null,
+        BIRTHDAY: null,
+        PROVINCE: province,
+        DISTRICT: null,
+        EMAIL: null,
+        INCOME: null,
+        INCOME_TYPE: null,
+        LOAN_AMOUNT: null,
+        LOAN_TENOR: null,
+        SEND_DATE: Date.now(),
         ERROR_CODE,
         ERROR_MSG,
         REQ_ID,
-        CHANNEL:"DIGITAL"
+        CHANNEL: "DIGITAL"
     });
     await sendLogRepository.addSendLog(sendLogInfo)
     //console.log('A new lead was received!\n', leadInfo);
