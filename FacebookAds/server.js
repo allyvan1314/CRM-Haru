@@ -32,6 +32,7 @@ router.get('/webhook', (req, res) => {
 
 // POST /webhook
 router.post('/webhook', async (req, res) => {
+    console.log("================ DIGITAL - FB ==================")
     // Facebook will be sending an object called "entry" for "leadgen" webhook event
     console.log('Facebook request body:', req.body);
 
@@ -50,8 +51,8 @@ router.post('/webhook', async (req, res) => {
             if (change.value.form_id === "231276709136039")
                 leadType = "mess1312";
             if (change.value.form_id === "970485890483632")
-                leadType = "lead0612";
-            console.log(leadType);
+                leadType = "lead1212";
+            //console.log(leadType);
             // Process new lead (leadgen_id)
             await processNewLead(change.value.leadgen_id, leadType);
         }
@@ -111,15 +112,28 @@ async function processNewLead(leadId, leadType) {
     let CHANNEL = "DIGITAL";
     switch (leadType) {
         case "lead0612":
+            console.log(leadType);
             phone = leadMap.get('số_điện_thoại_liên_hệ');
             name = leadMap.get('họ_tên');
             province = leadMap.get('tỉnh/_thành_phố_đăng_sinh_sống');
             break;
+        case "mess1312":
+            console.log(leadType);
+            phone = leadMap.get('phone');
+            name = leadMap.get('name');
+            province = leadMap.get('city');
+            break;
+        case "lead1212":
+            console.log(leadType);
+            phone = leadMap.get('phone');
+            name = leadMap.get('name');
+            province = leadMap.get('city');
+            break;
+        default:
+            break;
     }
 
-
-
-    console.log(leadForm);
+    //console.log(leadForm);
     //console.log(leadMap.get('số_điện_thoại_liên_hệ'));
     let info = new fbLead({
         Phone: phone,
