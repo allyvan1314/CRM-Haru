@@ -42,6 +42,9 @@ router.post('/webhook', async (req, res) => {
     // Travere entries & changes and process lead IDs
     for (const entry of req.body.entry) {
         for (const change of entry.changes) {
+            // define lead form
+            if (change.value.form_id==="275686054524805")
+                console.log("lead form 06-12-2021")
             // Process new lead (leadgen_id)
             await processNewLead(change.value.leadgen_id);
         }
@@ -89,7 +92,7 @@ async function processNewLead(leadId) {
     // Implode into string with newlines in between fields
     //const leadInfo = leadForm.join('\n');
     //let LEAD = leadInfo;
-    console.log(response);
+    //console.log(response);
 
     let phone =leadMap.get('số_điện_thoại_liên_hệ');
     let name = leadMap.get('họ_tên');
