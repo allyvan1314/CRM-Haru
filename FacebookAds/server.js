@@ -51,6 +51,7 @@ router.post('/webhook', async (req, res) => {
                 leadType = "mess1312";
             if (change.value.form_id === "970485890483632")
                 leadType = "lead0612";
+            console.log(leadType);
             // Process new lead (leadgen_id)
             await processNewLead(change.value.leadgen_id, leadType);
         }
@@ -118,7 +119,7 @@ async function processNewLead(leadId, leadType) {
 
 
 
-    //console.log(leadForm);
+    console.log(leadForm);
     //console.log(leadMap.get('số_điện_thoại_liên_hệ'));
     let info = new fbLead({
         Phone: phone,
