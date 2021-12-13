@@ -89,6 +89,8 @@ async function processNewLead(leadId) {
     // Implode into string with newlines in between fields
     //const leadInfo = leadForm.join('\n');
     //let LEAD = leadInfo;
+    console.log(response);
+
     let phone =leadMap.get('số_điện_thoại_liên_hệ');
     let name = leadMap.get('họ_tên');
     let province = leadMap.get('tỉnh/_thành_phố_đăng_sinh_sống');
