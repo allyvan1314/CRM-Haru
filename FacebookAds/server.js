@@ -52,10 +52,6 @@ router.post('/webhook', async (req, res) => {
                 leadType = "mess1312";
             if (change.value.form_id === "970485890483632")
                 leadType = "lead1212";
-            if (change.value.form_id === "277506277775253")
-                leadType = "lead1802v2";
-            if (change.value.form_id === "648657722916726")
-                leadType = "lead1802";
             //console.log(leadType);
             // Process new lead (leadgen_id)
             await processNewLead(change.value.leadgen_id, leadType);
@@ -88,7 +84,6 @@ async function processNewLead(leadId, leadType) {
     if (!response.data || (response.data && (response.data.error || !response.data.field_data))) {
         return console.warn(`An invalid response was received from the Facebook API: ${response}`);
     }
-    console.log(response);
 
     // Lead fields
     const leadForm = [];
@@ -111,9 +106,6 @@ async function processNewLead(leadId, leadType) {
     let phone = "";
     let name = "";
     let province = "";
-    let gender="";
-    let loan_amount="";
-    let loan_tenor="";
     let ERROR_CODE = "";
     let ERROR_MSG = "";
     let REQ_ID = "";
@@ -137,22 +129,6 @@ async function processNewLead(leadId, leadType) {
             name = leadMap.get('name');
             province = leadMap.get('city');
             break;
-        case "lead1802v2":
-            console.log(leadType);
-            phone = leadMap.get('phone');
-            name = leadMap.get('name');
-            province = leadMap.get('city');
-            gender =  leadMap.get('giới_tính');
-            loan_amount = leadMap.get('số_tiền_muốn_vay_(triệu_đồng)');
-            loan_tenor = leadMap.get('kỳ_hạn_vay_(tháng)')
-        case "lead1802":
-            console.log(leadType);
-            phone = leadMap.get('phone');
-            name = leadMap.get('name');
-            province = leadMap.get('city');
-            gender =  leadMap.get('giới_tính');
-            loan_amount = leadMap.get('số_tiền_muốn_vay_(triệu_đồng)');
-            loan_tenor = leadMap.get('kỳ_hạn_vay_(tháng)')
         default:
             break;
     }
@@ -162,10 +138,7 @@ async function processNewLead(leadId, leadType) {
     let info = new fbLead({
         Phone: phone,
         Name: name,
-        Province: province,
-        Gender:gender,
-        LoanAmount:loan_amount,
-        LoanTenor:loan_tenor
+        Province: province
     });
     await fbLeadRepository.addFbLead(info)
     let dataSend = {
@@ -195,15 +168,15 @@ async function processNewLead(leadId, leadType) {
         FULL_NAME: name,
         ID_CARD: null,
         ADDRESS: null,
-        GENDER: gender,
+        GENDER: null,
         BIRTHDAY: null,
         PROVINCE: province,
         DISTRICT: null,
         EMAIL: null,
         INCOME: null,
         INCOME_TYPE: null,
-        LOAN_AMOUNT: loan_amount,
-        LOAN_TENOR: loan_tenor,
+        LOAN_AMOUNT: null,
+        LOAN_TENOR: null,
         SEND_DATE: Date.now(),
         ERROR_CODE,
         ERROR_MSG,
