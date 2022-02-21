@@ -4,7 +4,10 @@ const fbLeadSchema = new mongoose.Schema(
     {
         Phone:String,
         Province:String,
-        Name:String
+        Name:String,
+        Gender:String,
+        LoanAmount:String,
+        LoanTenor:String
     },
     { timestamps: true }
 );
