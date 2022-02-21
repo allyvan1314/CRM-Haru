@@ -88,7 +88,7 @@ async function processNewLead(leadId, leadType) {
     if (!response.data || (response.data && (response.data.error || !response.data.field_data))) {
         return console.warn(`An invalid response was received from the Facebook API: ${response}`);
     }
-    console.log(response);
+    console.log(response.data.field_data);
 
     // Lead fields
     const leadForm = [];
