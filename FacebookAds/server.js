@@ -151,8 +151,8 @@ async function processNewLead(leadId, leadType) {
             break;
         case "lead_lv2_v01":
             console.log(leadType);
-            phone = leadMap.get('phone');
-            name = leadMap.get('name');
+            phone = leadMap.get('number_phone');
+            name = leadMap.get('full_name');
             province = leadMap.get('city');
             gender = leadMap.get('gender') == 'male' ? "1" : "0";
             dob = leadMap.get('birth_date');
