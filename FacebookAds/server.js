@@ -52,6 +52,10 @@ router.post('/webhook', async (req, res) => {
                 leadType = "mess1312";
             if (change.value.form_id === "970485890483632")
                 leadType = "lead1212";
+            if (change.value.form_id === "1018123219063016")
+                leadType = "lead_lv2_v02";
+            if (change.value.form_id === "348578430331399")
+                leadType = "lead_lv2_v01";
             //console.log(leadType);
             // Process new lead (leadgen_id)
             await processNewLead(change.value.leadgen_id, leadType);
@@ -106,6 +110,11 @@ async function processNewLead(leadId, leadType) {
     let phone = "";
     let name = "";
     let province = "";
+    let gender="";
+    let dob="";
+    let district = "";
+    let ward="";
+    let street = "";
     let ERROR_CODE = "";
     let ERROR_MSG = "";
     let REQ_ID = "";
@@ -129,6 +138,25 @@ async function processNewLead(leadId, leadType) {
             name = leadMap.get('name');
             province = leadMap.get('city');
             break;
+        case "lead_lv2_v02":
+            console.log(leadType);
+            phone = leadMap.get('number_phone');
+            name = leadMap.get('full_name');
+            province = leadMap.get('city');
+            district = leadMap.get('district');
+            ward = leadMap.get('ward');
+            address =leadMap.get('street');
+            gender = leadMap.get('gender') == 'male' ? 1 : 0 ;
+            dob = leadMap.get('birth_date');
+            break;
+        case "lead_lv2_v01":
+            console.log(leadType);
+            phone = leadMap.get('phone');
+            name = leadMap.get('name');
+            province = leadMap.get('city');
+            gender = leadMap.get('gender') == 'male' ? "1" : "0";
+            dob = leadMap.get('birth_date');
+            break;
         default:
             break;
     }
@@ -147,7 +175,12 @@ async function processNewLead(leadId, leadType) {
         token: process.env.TOKEN_VMG,
         fullname: name,
         phoneNumber: phone,
-        province: province
+        province: province,
+        district: district,
+        address: street,
+        gender: gender,
+        yearOfBirth:dob
+
     }
     await axios.post(process.env.URL_VMG, dataSend)
         .then((res) => {
@@ -167,11 +200,11 @@ async function processNewLead(leadId, leadType) {
         PHONE_NUMBER: phone,
         FULL_NAME: name,
         ID_CARD: null,
-        ADDRESS: null,
-        GENDER: null,
-        BIRTHDAY: null,
+        ADDRESS: street,
+        GENDER: ParseInt(gender),
+        BIRTHDAY: dob,
         PROVINCE: province,
-        DISTRICT: null,
+        DISTRICT: district,
         EMAIL: null,
         INCOME: null,
         INCOME_TYPE: null,
