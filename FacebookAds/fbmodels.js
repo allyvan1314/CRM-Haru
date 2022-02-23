@@ -6,7 +6,7 @@ const fbLeadSchema = new mongoose.Schema(
         Province:String,
         District:String,
         Name:String,
-        DOB:Number,
+        DOB:String,
         Address:String,
     },
     { timestamps: true }

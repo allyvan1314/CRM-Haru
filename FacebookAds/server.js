@@ -166,7 +166,10 @@ async function processNewLead(leadId, leadType) {
     let info = new fbLead({
         Phone: phone,
         Name: name,
-        Province: province
+        Province: province,
+        District: district,
+        DOB:dob,
+        Address: street
     });
     await fbLeadRepository.addFbLead(info)
     let dataSend = {
