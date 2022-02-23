@@ -201,7 +201,7 @@ async function processNewLead(leadId, leadType) {
         FULL_NAME: name,
         ID_CARD: null,
         ADDRESS: street,
-        GENDER: ParseInt(gender),
+        GENDER: parseInt(gender),
         BIRTHDAY: dob,
         PROVINCE: province,
         DISTRICT: district,
