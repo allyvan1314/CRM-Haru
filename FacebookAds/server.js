@@ -119,6 +119,8 @@ async function processNewLead(leadId, leadType) {
     let ERROR_MSG = "";
     let REQ_ID = "";
     let CHANNEL = "DIGITAL";
+
+    let sendLogGender = 2;
     switch (leadType) {
         case "lead0612":
             console.log(leadType);
@@ -146,7 +148,7 @@ async function processNewLead(leadId, leadType) {
             district = leadMap.get('district');
             ward = leadMap.get('ward');
             address =leadMap.get('street');
-            gender = leadMap.get('gender') == 'male' ? 1 : 0 ;
+            sendLogGender = gender = leadMap.get('gender') == 'male' ? 1 : 0 ;
             dob = leadMap.get('birth_date');
             break;
         case "lead_lv2_v01":
@@ -154,7 +156,7 @@ async function processNewLead(leadId, leadType) {
             phone = leadMap.get('number_phone');
             name = leadMap.get('full_name');
             province = leadMap.get('city');
-            gender = leadMap.get('gender') == 'male' ? "1" : "0";
+            sendLogGender = gender = leadMap.get('gender') == 'male' ? "1" : "0";
             dob = leadMap.get('birth_date');
             break;
         default:
@@ -204,7 +206,7 @@ async function processNewLead(leadId, leadType) {
         FULL_NAME: name,
         ID_CARD: null,
         ADDRESS: street,
-        GENDER: parseInt(gender),
+        GENDER: sendLogGender,
         BIRTHDAY: dob,
         PROVINCE: province,
         DISTRICT: district,
