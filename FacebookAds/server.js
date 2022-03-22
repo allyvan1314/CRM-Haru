@@ -163,6 +163,14 @@ async function processNewLead(leadId, leadType) {
             sendLogGender = gender = leadMap.get('gender') == 'male' ? "1" : "0";
             dob = leadMap.get('birth_date');
             break;
+        case "lead_lv3_p":
+            console.log(leadType);
+            phone = leadMap.get('number_phone');
+            name = leadMap.get('full_name');
+            province = leadMap.get('city');
+            sendLogGender = gender = leadMap.get('gender') == 'male' ? "1" : "0";
+            dob = leadMap.get('birth_date');
+            break;
         default:
             break;
     }
