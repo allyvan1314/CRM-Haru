@@ -56,6 +56,10 @@ router.post('/webhook', async (req, res) => {
                 leadType = "lead_lv2_v02";
             if (change.value.form_id === "348578430331399")
                 leadType = "lead_lv2_v01";
+            if (change.value.form_id === "324642926314402")
+                leadType = "lead_lv3_p";
+
+
             //console.log(leadType);
             // Process new lead (leadgen_id)
             await processNewLead(change.value.leadgen_id, leadType);
@@ -110,10 +114,10 @@ async function processNewLead(leadId, leadType) {
     let phone = "";
     let name = "";
     let province = "";
-    let gender="";
-    let dob="";
+    let gender = "";
+    let dob = "";
     let district = "";
-    let ward="";
+    let ward = "";
     let street = "";
     let ERROR_CODE = "";
     let ERROR_MSG = "";
@@ -147,8 +151,8 @@ async function processNewLead(leadId, leadType) {
             province = leadMap.get('city');
             district = leadMap.get('district');
             ward = leadMap.get('ward');
-            address =leadMap.get('street');
-            sendLogGender = gender = leadMap.get('gender') == 'male' ? 1 : 0 ;
+            address = leadMap.get('street');
+            sendLogGender = gender = leadMap.get('gender') == 'male' ? 1 : 0;
             dob = leadMap.get('birth_date');
             break;
         case "lead_lv2_v01":
@@ -170,7 +174,7 @@ async function processNewLead(leadId, leadType) {
         Name: name,
         Province: province,
         District: district,
-        DOB:dob,
+        DOB: dob,
         Address: street
     });
     await fbLeadRepository.addFbLead(info)
@@ -184,7 +188,7 @@ async function processNewLead(leadId, leadType) {
         district: district,
         address: street,
         gender: gender,
-        yearOfBirth:dob
+        yearOfBirth: dob
 
     }
     await axios.post(process.env.URL_VMG, dataSend)
