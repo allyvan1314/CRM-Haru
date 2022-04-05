@@ -58,7 +58,10 @@ router.post('/webhook', async (req, res) => {
                 leadType = "lead_lv2_v01";
             if (change.value.form_id === "324642926314402")
                 leadType = "lead_lv3_p";
-
+            if (change.value.form_id === "1043886249670521")
+                leadType = "lead_01_p";
+            if (change.value.form_id === "1069273733653961")
+                leadType = "lead_01_pp";
 
             //console.log(leadType);
             // Process new lead (leadgen_id)
@@ -171,6 +174,15 @@ async function processNewLead(leadId, leadType) {
             sendLogGender = gender = leadMap.get('gender') == 'male' ? "1" : "0";
             dob = leadMap.get('birth_date');
             break;
+            case "lead_01_pp":
+            console.log(leadType);
+            phone = leadMap.get('phone');
+            name = leadMap.get('name');
+            case "lead_01_p":
+            console.log(leadType);
+            phone = leadMap.get('phone');
+            name = leadMap.get('name');
+            sendLogGender = gender = leadMap.get('gender') == 'male' ? "1" : "0";
         default:
             break;
     }
