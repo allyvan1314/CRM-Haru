@@ -174,15 +174,17 @@ async function processNewLead(leadId, leadType) {
             sendLogGender = gender = leadMap.get('gender') == 'male' ? "1" : "0";
             dob = leadMap.get('birth_date');
             break;
-            case "lead_01_pp":
+        case "lead_01_pp":
             console.log(leadType);
             phone = leadMap.get('phone');
             name = leadMap.get('name');
-            case "lead_01_p":
+            break;
+        case "lead_01_p":
             console.log(leadType);
             phone = leadMap.get('phone');
             name = leadMap.get('name');
             sendLogGender = gender = leadMap.get('gender') == 'male' ? "1" : "0";
+            break;
         default:
             break;
     }
